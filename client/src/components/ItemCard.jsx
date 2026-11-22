@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Tag, Sparkles } from 'lucide-react';
 import { StatusBadge, TypeBadge } from './Badge';
 import { CATEGORIES } from '../constants';
+import { getImageUrl } from '../api';
 
 export default function ItemCard({ item, matchScore }) {
   const categoryLabel = CATEGORIES.find((c) => c.value === item.category)?.label || item.category;
@@ -30,7 +31,7 @@ export default function ItemCard({ item, matchScore }) {
       <div className="w-full h-44 bg-slate-100 flex items-center justify-center overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-300">
         {item.imageUrl ? (
           <img
-            src={item.imageUrl}
+            src={getImageUrl(item.imageUrl)}
             alt={item.title}
             className="w-full h-full object-cover"
             onError={(e) => {

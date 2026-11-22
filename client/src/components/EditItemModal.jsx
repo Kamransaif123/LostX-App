@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api';
+import api, { getImageUrl } from '../api';
 import { CATEGORIES, LOCATIONS } from '../constants';
 import { X, Upload, AlertCircle, Lock, EyeOff } from 'lucide-react';
 
@@ -196,7 +196,7 @@ export default function EditItemModal({ item, onClose, onItemUpdated }) {
 
             {imagePreview && (
               <div className="mt-2 w-20 h-20 rounded-xl overflow-hidden border border-slate-200 relative">
-                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                <img src={getImageUrl(imagePreview)} alt="Preview" className="w-full h-full object-cover" />
               </div>
             )}
           </div>

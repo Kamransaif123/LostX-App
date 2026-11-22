@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import api from '../api';
+import api, { getImageUrl } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { StatusBadge, TypeBadge, ClaimBadge } from '../components/Badge';
 import ItemCard from '../components/ItemCard';
@@ -307,7 +307,7 @@ export default function ItemDetail() {
         <div className="bg-slate-100 flex items-center justify-center min-h-[300px] md:min-h-[420px] relative">
           {item.imageUrl ? (
             <img
-              src={item.imageUrl}
+              src={getImageUrl(item.imageUrl)}
               alt={item.title}
               className="w-full h-full object-cover max-h-[450px]"
             />

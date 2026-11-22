@@ -8,11 +8,11 @@ export default defineConfig({
     host: true, // expose on local network (0.0.0.0) so phones on the same WiFi can reach it
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://lostx-app.onrender.com',
         changeOrigin: true
       },
       '/uploads': {
-        target: 'http://localhost:5000',
+        target: 'https://lostx-app.onrender.com',
         changeOrigin: true
       }
     }

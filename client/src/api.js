@@ -33,4 +33,17 @@ api.interceptors.response.use(
   }
 );
 
+export const getImageUrl = (url) => {
+  if (!url) return null;
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('blob:')) {
+    return url;
+  }
+  const apiBase = import.meta.env.VITE_API_URL;
+  if (apiBase) {
+    const backendOrigin = apiBase.replace(/\/api\/?$/, '');
+    return `${backendOrigin}${url.startsWith('/') ? '' : '/'}${url}`;
+  }
+  return url;
+};
+
 export default api;
