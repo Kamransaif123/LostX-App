@@ -1,0 +1,16 @@
+{
+  "name": "lostx",
+  "version": "1.0.0",
+  "description": "LostX - Campus Lost & Found System",
+  "scripts": {
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "seed:admin": "cd server && npm run seed:admin",
+    "seed:demo": "cd server && npm run seed:demo",
+    "test:server": "cd server && npm test",
+    "build:client": "cd client && npm run build"
+  },
+  "keywords": ["lost-and-found", "campus", "react", "express", "mongodb"],
+  "author": "LostX",
+  "license": "ISC"
+}

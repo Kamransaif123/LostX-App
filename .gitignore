@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment files (keep secrets safe!)
+.env
+client/.env
+server/.env
+
+# Build output
+client/dist/
+client/build/
+
+# Uploads (local files, not for git)
+server/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
