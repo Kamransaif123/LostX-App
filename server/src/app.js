@@ -11,6 +11,9 @@ const adminRoutes = require('./routes/admin');
 
 const app = express();
 
+// Trust reverse proxy (needed for accurate IP rate limiting on Render/Vercel)
+app.set('trust proxy', 1);
+
 // Middlewares
 app.use(cors({
   origin: true,

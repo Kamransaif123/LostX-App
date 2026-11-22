@@ -92,36 +92,38 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Quick Demo Fill Buttons */}
-        <div className="pt-4 border-t border-slate-100">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center">
-            <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-500" />
-            Quick Demo Auto-Fill:
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('alice@campus.edu', 'Password123!')}
-              className="px-2 py-1.5 text-xs font-semibold bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 rounded-lg text-slate-700 transition-colors"
-            >
-              Alice (User)
-            </button>
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('bob@campus.edu', 'Password123!')}
-              className="px-2 py-1.5 text-xs font-semibold bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 rounded-lg text-slate-700 transition-colors"
-            >
-              Bob (User)
-            </button>
-            <button
-              type="button"
-              onClick={() => fillQuickDemo('admin@lostx.campus', 'Admin@12345')}
-              className="px-2 py-1.5 text-xs font-semibold bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 rounded-lg transition-colors"
-            >
-              Admin
-            </button>
+        {/* Quick Demo Fill Buttons - Dev environment only */}
+        {import.meta.env.DEV && (
+          <div className="pt-4 border-t border-slate-100">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center">
+              <Sparkles className="w-3.5 h-3.5 mr-1 text-amber-500" />
+              Quick Demo Auto-Fill (Local Dev Only):
+            </p>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => fillQuickDemo('alice@campus.edu', 'Password123!')}
+                className="px-2 py-1.5 text-xs font-semibold bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 rounded-lg text-slate-700 transition-colors"
+              >
+                Alice (User)
+              </button>
+              <button
+                type="button"
+                onClick={() => fillQuickDemo('bob@campus.edu', 'Password123!')}
+                className="px-2 py-1.5 text-xs font-semibold bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 rounded-lg text-slate-700 transition-colors"
+              >
+                Bob (User)
+              </button>
+              <button
+                type="button"
+                onClick={() => fillQuickDemo('admin@lostx.campus', 'Admin@12345')}
+                className="px-2 py-1.5 text-xs font-semibold bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 rounded-lg transition-colors"
+              >
+                Admin
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         <p className="text-center text-xs text-slate-500">
           Don't have an account yet?{' '}

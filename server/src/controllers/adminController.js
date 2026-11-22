@@ -113,3 +113,45 @@ exports.exportItemsCSV = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Failed to generate CSV export.' });
   }
 };
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, '-passwordHash').sort({ createdAt: -1 });
+    return res.status(200).json({ success: true, users });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Server error retrieving users.' });
+  }
+};
+
+exports.promoteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+    user.role = 'admin';
+    await user.save();
+    return res.status(200).json({
+      success: true,
+      message: `User ${user.email} promoted to admin successfully.`,
+      user: { id: user._id, name: user.name, email: user.email, role: user.role }
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Server error promoting user.' });
+  }
+};
+
+exports.deleteDemoUsers = async (req, res) => {
+  try {
+    const result = await User.deleteMany({
+      email: { $in: ['alice@campus.edu', 'bob@campus.edu'] }
+    });
+    return res.status(200).json({
+      success: true,
+      message: `Deleted ${result.deletedCount} demo user account(s).`
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Server error deleting demo users.' });
+  }
+};
