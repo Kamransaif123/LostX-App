@@ -310,14 +310,23 @@ export default function ItemDetail() {
               src={getImageUrl(item.imageUrl)}
               alt={item.title}
               className="w-full h-full object-cover max-h-[450px]"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                if (e.target.nextSibling) {
+                  e.target.nextSibling.style.display = 'flex';
+                }
+              }}
             />
-          ) : (
-            <div className="flex flex-col items-center justify-center text-slate-400 p-8 text-center">
-              <Tag className="w-16 h-16 mb-2 opacity-30" />
-              <p className="text-sm font-semibold">{categoryLabel}</p>
-              <p className="text-xs text-slate-400 mt-1">No photo provided for this report</p>
-            </div>
-          )}
+          ) : null}
+          <div
+            className={`flex-col items-center justify-center text-slate-400 p-8 text-center ${
+              item.imageUrl ? 'hidden' : 'flex'
+            }`}
+          >
+            <Tag className="w-16 h-16 mb-2 opacity-30" />
+            <p className="text-sm font-semibold">{categoryLabel}</p>
+            <p className="text-xs text-slate-400 mt-1">No photo provided for this report</p>
+          </div>
 
           <div className="absolute top-4 left-4">
             <TypeBadge type={item.type} />
