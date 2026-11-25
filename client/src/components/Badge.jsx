@@ -5,7 +5,7 @@ export function StatusBadge({ status }) {
     open: { label: 'Open', classes: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
     matched: { label: 'Match Found', classes: 'bg-blue-50 text-blue-700 border-blue-200' },
     claimed: { label: 'Claimed', classes: 'bg-amber-50 text-amber-700 border-amber-200' },
-    recovered: { label: 'Recovered', classes: 'bg-purple-50 text-purple-700 border-purple-200' },
+    recovered: { label: 'Recovered', classes: 'bg-brand-50 text-brand-700 border-brand-200' },
     archived: { label: 'Archived / Expired', classes: 'bg-slate-100 text-slate-600 border-slate-300' }
   };
 
@@ -23,11 +23,12 @@ export function TypeBadge({ type }) {
   const isLost = type === 'lost';
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider ${
-        isLost ? 'bg-rose-100 text-rose-800 border border-rose-200' : 'bg-teal-100 text-teal-800 border border-teal-200'
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+        isLost ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
       }`}
     >
-      {isLost ? 'Lost Item' : 'Found Item'}
+      <span className="w-1.5 h-1.5 mr-1.5 rounded-full bg-current opacity-70"></span>
+      {isLost ? 'Lost' : 'Found'}
     </span>
   );
 }

@@ -10,6 +10,9 @@ router.post('/', authMiddleware, upload.single('image'), itemController.createIt
 // List items with filters and pagination (public)
 router.get('/', optionalAuthMiddleware, itemController.getItems);
 
+// Public overall stats for homepage
+router.get('/stats', itemController.getPublicStats);
+
 // Current user's reported items
 router.get('/mine', authMiddleware, itemController.getMyItems);
 

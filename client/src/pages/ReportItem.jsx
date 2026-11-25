@@ -6,12 +6,7 @@ import {
   Upload,
   AlertCircle,
   EyeOff,
-  Lock,
-  PlusCircle,
-  CheckCircle2,
-  Calendar,
-  MapPin,
-  Tag
+  Lock
 } from 'lucide-react';
 
 export default function ReportItem() {
@@ -88,54 +83,56 @@ export default function ReportItem() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 sm:px-6">
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xl overflow-hidden">
+    <div className="max-w-2xl mx-auto px-4 py-8 sm:px-6 animate-reveal">
+      <div className="bg-white rounded-md border border-slate-200 overflow-hidden shadow-sm">
         {/* Header */}
-        <div className="px-6 py-6 sm:px-8 border-b border-slate-100 bg-slate-50/50">
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Report an Item</h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Fill in the details below. Our rule-based matcher will immediately check for possible matches.
+        <div className="px-6 py-5 sm:px-8 border-b border-slate-200 bg-slate-50/50">
+          <h1 className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">
+            Register campus property
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Submit a lost or found report to run automated match scoring across the directory.
           </p>
 
           {/* Type Switcher */}
-          <div className="mt-5 grid grid-cols-2 p-1.5 bg-slate-200/70 rounded-2xl max-w-sm">
+          <div className="mt-4 flex items-center p-0.5 bg-slate-200/80 rounded-md max-w-xs">
             <button
               type="button"
               onClick={() => setType('lost')}
-              className={`py-2 text-xs font-bold rounded-xl transition-all ${
+              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors ${
                 type === 'lost'
-                  ? 'bg-rose-500 text-white shadow-md'
+                  ? 'bg-rose-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              I Lost An Item
+              Report a lost item
             </button>
             <button
               type="button"
               onClick={() => setType('found')}
-              className={`py-2 text-xs font-bold rounded-xl transition-all ${
+              className={`flex-1 py-1.5 text-xs font-medium rounded transition-colors ${
                 type === 'found'
-                  ? 'bg-teal-600 text-white shadow-md'
+                  ? 'bg-emerald-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              I Found An Item
+              Report a found item
             </button>
           </div>
         </div>
 
         {error && (
-          <div className="mx-6 mt-6 sm:mx-8 p-3.5 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-xl flex items-center">
-            <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0" />
+          <div className="mx-6 mt-6 sm:mx-8 p-3 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-md flex items-start">
+            <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-4">
           {/* Title */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Item Title <span className="text-rose-500">*</span>
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Item title <span className="text-rose-500">*</span>
             </label>
             <input
               type="text"
@@ -143,25 +140,25 @@ export default function ReportItem() {
               maxLength={120}
               placeholder={
                 type === 'lost'
-                  ? 'e.g. Black Fossil Leather Wallet'
-                  : 'e.g. Black Leather Wallet found near reading desk'
+                  ? 'e.g. Black Fossil leather wallet'
+                  : 'e.g. Black leather wallet turned in at reception'
               }
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+              className="w-full px-3 py-2 rounded-md border border-slate-300 text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition-colors"
             />
           </div>
 
           {/* Category & Location Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-700 mb-1">
                 Category <span className="text-rose-500">*</span>
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+                className="w-full px-3 py-2 rounded-md border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat.value} value={cat.value}>
@@ -172,13 +169,13 @@ export default function ReportItem() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Campus Location <span className="text-rose-500">*</span>
+              <label className="block text-xs font-medium text-slate-700 mb-1">
+                Campus location <span className="text-rose-500">*</span>
               </label>
               <select
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+                className="w-full px-3 py-2 rounded-md border border-slate-300 bg-white text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600"
               >
                 {LOCATIONS.map((loc) => (
                   <option key={loc} value={loc}>
@@ -191,22 +188,22 @@ export default function ReportItem() {
 
           {/* Date */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Date {type === 'lost' ? 'Lost' : 'Found'} <span className="text-rose-500">*</span>
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Date {type === 'lost' ? 'lost' : 'found'} <span className="text-rose-500">*</span>
             </label>
             <input
               type="date"
               required
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+              className="w-full px-3 py-2 rounded-md border border-slate-300 text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Public Description <span className="text-rose-500">*</span>
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Public description <span className="text-rose-500">*</span>
             </label>
             <textarea
               required
@@ -214,24 +211,24 @@ export default function ReportItem() {
               maxLength={2000}
               placeholder={
                 type === 'lost'
-                  ? 'Describe recognizable details (brand, color, materials, where you were sitting)...'
-                  : 'General public description (do NOT include secret details here)...'
+                  ? 'Describe recognizable attributes (brand, color, materials, general area where misplaced)...'
+                  : 'General public overview (do NOT disclose secret identifying details here)...'
               }
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+              className="w-full px-3 py-2 rounded-md border border-slate-300 text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600"
             ></textarea>
           </div>
 
           {/* Optional Image Upload */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Optional Photo (Stored safely, max 2MB)
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Photo (optional, max 2MB)
             </label>
-            <div className="flex items-center gap-4">
-              <label className="cursor-pointer inline-flex items-center px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-bold text-slate-700 transition-colors">
-                <Upload className="w-4 h-4 mr-2 text-slate-500" />
-                Choose Image
+            <div className="flex items-center gap-3">
+              <label className="cursor-pointer inline-flex items-center px-3 py-2 rounded-md border border-slate-300 bg-slate-50 hover:bg-slate-100 text-xs font-medium text-slate-700 transition-colors">
+                <Upload className="w-3.5 h-3.5 mr-1.5 text-slate-500" />
+                Select file
                 <input
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/gif"
@@ -245,7 +242,7 @@ export default function ReportItem() {
             </div>
 
             {imagePreview && (
-              <div className="mt-3 relative w-32 h-32 rounded-xl overflow-hidden border border-slate-200">
+              <div className="mt-2.5 relative w-24 h-24 rounded-md overflow-hidden border border-slate-200">
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 <button
                   type="button"
@@ -253,7 +250,7 @@ export default function ReportItem() {
                     setImageFile(null);
                     setImagePreview(null);
                   }}
-                  className="absolute top-1 right-1 bg-black/60 text-white p-1 rounded-full text-xs"
+                  className="absolute top-1 right-1 bg-black/70 text-white w-5 h-5 rounded-full text-xs flex items-center justify-center"
                 >
                   ✕
                 </button>
@@ -263,70 +260,68 @@ export default function ReportItem() {
 
           {/* Found Item Special Fields: Private Detail & Handover Info */}
           {type === 'found' && (
-            <div className="p-5 rounded-2xl bg-teal-50/60 border border-teal-200/80 space-y-4">
-              <div className="flex items-start space-x-2.5">
-                <div className="p-1.5 rounded-lg bg-teal-600 text-white mt-0.5">
-                  <Lock className="w-4 h-4" />
-                </div>
+            <div className="p-4 rounded-md bg-slate-50 border border-slate-200 space-y-3.5 mt-2">
+              <div className="flex items-start space-x-2">
+                <Lock className="w-4 h-4 text-brand-600 mt-0.5 flex-shrink-0" />
                 <div>
-                  <h4 className="text-sm font-bold text-teal-900">Verification & Handover Privacy</h4>
-                  <p className="text-xs text-teal-700 mt-0.5">
-                    These two fields protect the item from false claims and coordinate safe return.
+                  <h4 className="text-xs font-semibold text-slate-900">Anti-fraud verification fields</h4>
+                  <p className="text-[11px] text-slate-500">
+                    These details protect property from fraudulent claims.
                   </p>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-teal-900 uppercase tracking-wider mb-1.5 flex items-center">
-                  <EyeOff className="w-3.5 h-3.5 mr-1" />
-                  Hidden Private Detail <span className="text-rose-500 ml-0.5">*</span>
-                  <span className="ml-2 text-[10px] font-normal text-teal-700 lowercase">
-                    (never shown publicly)
+                <label className="block text-xs font-medium text-slate-700 mb-1 flex items-center">
+                  <EyeOff className="w-3.5 h-3.5 mr-1 text-slate-400" />
+                  Confidential verification detail <span className="text-rose-500 ml-0.5">*</span>
+                  <span className="ml-1.5 text-[11px] text-slate-400 font-normal">
+                    (hidden from public view)
                   </span>
                 </label>
                 <textarea
                   required
                   rows={2}
                   maxLength={1000}
-                  placeholder="e.g. Wallpaper on lockscreen, student ID number ending in 4921, engraving, exact contents inside zipper pocket..."
+                  placeholder="e.g. Wallpaper on phone lockscreen, student ID number ending in 4921, exact contents in pocket..."
                   value={privateDetails}
                   onChange={(e) => setPrivateDetails(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-teal-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600"
+                  className="w-full px-3 py-2 rounded-md border border-slate-300 bg-white text-xs sm:text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600"
                 ></textarea>
-                <p className="text-[11px] text-teal-700 mt-1">
-                  Only the campus admin will see this to cross-check when a claimant submits proof.
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Only administrators review this to confirm ownership when someone submits a claim.
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-teal-900 uppercase tracking-wider mb-1.5">
-                  Where is the item currently kept? (Handover Spot)
+                <label className="block text-xs font-medium text-slate-700 mb-1">
+                  Designated collection counter / location
                 </label>
                 <input
                   type="text"
                   maxLength={500}
-                  placeholder="e.g. Library Reception Desk 2, or Main Gate Security Cabin"
+                  placeholder="e.g. Library Reception Desk 2, or Main Gate Security Post"
                   value={handoverInfo}
                   onChange={(e) => setHandoverInfo(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-teal-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-600"
+                  className="w-full px-3 py-2 rounded-md border border-slate-300 bg-white text-xs sm:text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600"
                 />
-                <p className="text-[11px] text-teal-700 mt-1">
-                  This location is revealed to the owner ONLY after an admin approves their claim.
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  Revealed to the verified owner ONLY after their claim is approved.
                 </p>
               </div>
             </div>
           )}
 
           {/* Submit Button */}
-          <div className="pt-2">
+          <div className="pt-3">
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md shadow-indigo-200 transition-all disabled:opacity-50"
+              className="w-full py-2.5 rounded-md bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm transition-colors disabled:opacity-50"
             >
               {loading
-                ? 'Submitting & Matching...'
-                : `Submit ${type === 'lost' ? 'Lost' : 'Found'} Report`}
+                ? 'Submitting...'
+                : `Submit ${type === 'lost' ? 'lost' : 'found'} report`}
             </button>
           </div>
         </form>

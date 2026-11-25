@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Compass, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 
 export default function Register() {
   const { register } = useAuth();
@@ -41,54 +41,54 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-[75vh] flex items-center justify-center px-4 py-12">
-      <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200/80 shadow-xl p-8 space-y-6">
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-600 text-white shadow-md shadow-indigo-200 mb-3">
-            <Compass className="w-6 h-6" />
+    <div className="min-h-[75vh] flex items-center justify-center px-4 py-12 animate-reveal">
+      <div className="max-w-sm w-full bg-white rounded-md border border-slate-200 p-6 sm:p-8 space-y-6 shadow-sm">
+        <div className="text-center space-y-1">
+          <div className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-slate-900 text-white mb-2">
+            <span className="font-mono font-bold text-base tracking-tighter">LX</span>
           </div>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight">Create an Account</h2>
-          <p className="text-xs text-slate-500 mt-1">Join your campus lost & found network</p>
+          <h2 className="text-xl font-semibold text-slate-900 tracking-tight">Create an account</h2>
+          <p className="text-xs text-slate-500">Join the campus property registry</p>
         </div>
 
         {error && (
-          <div className="flex items-center p-3 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-xl">
-            <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0" />
+          <div className="flex items-start p-3 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-md">
+            <AlertCircle className="w-4 h-4 mr-2 flex-shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Full Name
+            <label className="block text-xs font-medium text-slate-700 mb-1.5">
+              Full name
             </label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. John Doe"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+              placeholder="e.g. Alex Morgan"
+              className="w-full px-3 py-2 rounded-md border border-slate-300 text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Email Address
+            <label className="block text-xs font-medium text-slate-700 mb-1.5">
+              Email address
             </label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="e.g. jdoe@campus.edu"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+              placeholder="e.g. alex@campus.edu"
+              className="w-full px-3 py-2 rounded-md border border-slate-300 text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-medium text-slate-700 mb-1.5">
               Password
             </label>
             <input
@@ -97,13 +97,13 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min. 6 characters"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+              className="w-full px-3 py-2 rounded-md border border-slate-300 text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-              Confirm Password
+            <label className="block text-xs font-medium text-slate-700 mb-1.5">
+              Confirm password
             </label>
             <input
               type="password"
@@ -111,22 +111,22 @@ export default function Register() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Re-enter password"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600"
+              className="w-full px-3 py-2 rounded-md border border-slate-300 text-sm focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-600 transition-colors"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md shadow-indigo-200 transition-all disabled:opacity-50"
+            className="w-full py-2.5 rounded-md bg-brand-600 hover:bg-brand-700 text-white font-medium text-sm transition-colors disabled:opacity-50"
           >
-            {loading ? 'Creating account...' : 'Create Account'}
+            {loading ? 'Creating account...' : 'Create account'}
           </button>
         </form>
 
-        <p className="text-center text-xs text-slate-500">
+        <p className="text-center text-xs text-slate-500 pt-1">
           Already have an account?{' '}
-          <Link to="/login" className="font-bold text-indigo-600 hover:underline">
+          <Link to="/login" className="font-medium text-brand-600 hover:underline">
             Sign in
           </Link>
         </p>

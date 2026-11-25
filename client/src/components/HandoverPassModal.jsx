@@ -43,10 +43,10 @@ export default function HandoverPassModal({ claim, onClose }) {
         }
       `}</style>
 
-      <div className="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-white rounded-md max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
         {/* Modal Top Bar (hidden during print) */}
         <div className="no-print px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-          <div className="flex items-center space-x-2 text-indigo-600 font-bold text-sm">
+          <div className="flex items-center space-x-2 text-brand-600 font-bold text-sm">
             <Compass className="w-4 h-4" />
             <span>Campus Security Handover Pass</span>
           </div>
@@ -63,7 +63,7 @@ export default function HandoverPassModal({ claim, onClose }) {
           {/* Header */}
           <div className="flex items-start justify-between border-b-2 border-dashed border-slate-200 pb-5">
             <div>
-              <div className="flex items-center space-x-1.5 text-indigo-600 font-black text-xl tracking-tight">
+              <div className="flex items-center space-x-1.5 text-brand-600 font-black text-xl tracking-tight">
                 <Compass className="w-6 h-6" />
                 <span>Lost<span className="text-slate-900">X</span></span>
               </div>
@@ -82,7 +82,7 @@ export default function HandoverPassModal({ claim, onClose }) {
           </div>
 
           {/* QR Code and Item Snapshot */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 p-4 rounded-md bg-slate-50 border border-slate-100">
             <div className="bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center flex-shrink-0">
               <QRCodeSVG value={itemUrl} size={100} level="M" />
               <span className="text-[9px] text-slate-400 font-bold uppercase mt-1">Scan to Verify</span>
@@ -107,7 +107,7 @@ export default function HandoverPassModal({ claim, onClose }) {
           </div>
 
           {/* Handover Collection Box */}
-          <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-emerald-950 space-y-1.5">
+          <div className="p-4 rounded-md bg-emerald-50/80 border border-emerald-200 text-emerald-950 space-y-1.5">
             <div className="text-[10px] font-black uppercase tracking-wider text-emerald-800 flex items-center">
               <MapPin className="w-3.5 h-3.5 mr-1 text-emerald-600" />
               Designated Collection / Handover Spot
@@ -153,7 +153,7 @@ export default function HandoverPassModal({ claim, onClose }) {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-200 transition-all active:scale-[0.98]"
+            className="inline-flex items-center px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-md shadow-brand-200 transition-all active:scale-[0.98]"
           >
             <Printer className="w-4 h-4 mr-1.5" />
             Print / Save Pass

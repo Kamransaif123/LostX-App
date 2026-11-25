@@ -7,11 +7,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="flex items-center space-x-2">
-            <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center">
-              <Compass className="w-4 h-4" />
+            <div className="w-6 h-6 rounded bg-slate-900 text-white flex items-center justify-center font-mono font-bold text-[10px]">
+              LX
             </div>
-            <span className="font-extrabold text-slate-800 tracking-tight">LostX</span>
-            <span className="text-xs text-slate-400">| Campus Lost & Found System</span>
+            <span className="font-semibold text-slate-900 text-sm tracking-tight">LostX</span>
+            <span className="text-xs text-slate-400">/ Campus Property Registry</span>
           </div>
 
           <div className="text-xs text-slate-500 flex items-center space-x-6">

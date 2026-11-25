@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-  Compass,
   Bell,
   PlusCircle,
   Search,
@@ -10,7 +9,6 @@ import {
   FileText,
   CheckCircle2,
   LogOut,
-  User,
   Menu,
   X
 } from 'lucide-react';
@@ -31,57 +29,57 @@ export default function Navbar() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <nav className="sticky top-0 z-50 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-14 sm:h-16">
           {/* Logo & Main nav */}
-          <div className="flex items-center space-x-8">
-            <Link to="/" className="flex items-center space-x-2 text-indigo-600 font-extrabold text-xl tracking-tight">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-200">
-                <Compass className="w-5 h-5" />
+          <div className="flex items-center space-x-6 sm:space-x-8">
+            <Link to="/" className="flex items-center space-x-2 text-slate-900 font-semibold text-lg tracking-tight">
+              <div className="w-7 h-7 rounded-md bg-slate-900 text-white flex items-center justify-center font-mono font-bold text-xs tracking-tighter">
+                LX
               </div>
-              <span className="text-slate-900 font-black text-2xl tracking-tight">
-                Lost<span className="text-indigo-600">X</span>
+              <span className="font-semibold text-slate-900 tracking-tight">
+                Lost<span className="text-brand-600">X</span>
               </span>
             </Link>
 
             <div className="hidden md:flex items-center space-x-1">
               <Link
                 to="/browse"
-                className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center px-2.5 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   isActive('/browse')
-                    ? 'text-indigo-600 bg-indigo-50 font-semibold'
+                    ? 'text-brand-700 bg-brand-50 font-semibold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
-                <Search className="w-4 h-4 mr-1.5" />
-                Browse Items
+                <Search className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+                Browse registry
               </Link>
 
               {user && (
                 <>
                   <Link
                     to="/my-reports"
-                    className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`flex items-center px-2.5 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                       isActive('/my-reports')
-                        ? 'text-indigo-600 bg-indigo-50 font-semibold'
+                        ? 'text-brand-700 bg-brand-50 font-semibold'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                   >
-                    <FileText className="w-4 h-4 mr-1.5" />
-                    My Reports
+                    <FileText className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+                    My reports
                   </Link>
 
                   <Link
                     to="/my-claims"
-                    className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`flex items-center px-2.5 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                       isActive('/my-claims')
-                        ? 'text-indigo-600 bg-indigo-50 font-semibold'
+                        ? 'text-brand-700 bg-brand-50 font-semibold'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                   >
-                    <CheckCircle2 className="w-4 h-4 mr-1.5" />
-                    My Claims
+                    <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+                    My claims
                   </Link>
                 </>
               )}
@@ -89,40 +87,40 @@ export default function Navbar() {
               {isAdmin && (
                 <Link
                   to="/admin"
-                  className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center px-2.5 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                     location.pathname.startsWith('/admin')
-                      ? 'text-purple-700 bg-purple-50 font-semibold'
-                      : 'text-purple-600 hover:text-purple-800 hover:bg-purple-50/60'
+                      ? 'text-brand-700 bg-brand-50 font-semibold'
+                      : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <ShieldCheck className="w-4 h-4 mr-1.5" />
-                  Admin Panel
+                  <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-brand-600" />
+                  Administration
                 </Link>
               )}
             </div>
           </div>
 
           {/* Right Action Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             <Link
               to="/report"
-              className="inline-flex items-center px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold shadow-sm shadow-indigo-300 transition-all active:scale-[0.98]"
+              className="inline-flex items-center px-3.5 py-1.5 rounded-md bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-medium transition-colors"
             >
-              <PlusCircle className="w-4 h-4 mr-1.5" />
-              Report Item
+              <PlusCircle className="w-3.5 h-3.5 mr-1.5" />
+              Report item
             </Link>
 
             {user ? (
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
                 {/* Notification Bell */}
                 <Link
                   to="/notifications"
-                  className="relative p-2 rounded-lg text-slate-600 hover:text-indigo-600 hover:bg-slate-100 transition-colors"
+                  className="relative p-1.5 rounded-md text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors"
                   title="Notifications"
                 >
-                  <Bell className="w-5 h-5" />
+                  <Bell className="w-4 h-4" />
                   {unreadCount > 0 && (
-                    <span className="absolute top-1 right-1 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[11px] font-bold text-white bg-rose-500 rounded-full animate-pulse">
+                    <span className="absolute top-0.5 right-0.5 flex items-center justify-center min-w-[16px] h-[16px] px-1 text-[10px] font-bold text-white bg-brand-600 rounded-full font-mono">
                       {unreadCount > 9 ? '9+' : unreadCount}
                     </span>
                   )}
@@ -132,28 +130,28 @@ export default function Navbar() {
                 <div className="relative">
                   <button
                     onClick={() => setUserMenuOpen(!userMenuOpen)}
-                    className="flex items-center space-x-2 p-1.5 rounded-lg hover:bg-slate-100 focus:outline-none"
+                    className="flex items-center space-x-2 p-1 rounded-md hover:bg-slate-100 focus:outline-none"
                   >
-                    <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-sm">
+                    <div className="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-medium text-xs font-mono">
                       {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
                     </div>
-                    <span className="text-sm font-medium text-slate-800 max-w-[120px] truncate">
+                    <span className="text-xs font-medium text-slate-700 max-w-[120px] truncate">
                       {user.name}
                     </span>
                   </button>
 
                   {userMenuOpen && (
                     <div
-                      className="absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl border border-slate-100 py-1.5 z-50 animate-in fade-in slide-in-from-top-1"
+                      className="absolute right-0 mt-1.5 w-52 rounded-md bg-white shadow-lg border border-slate-200 py-1 z-50 animate-reveal"
                       onMouseLeave={() => setUserMenuOpen(false)}
                     >
-                      <div className="px-4 py-2 border-b border-slate-100">
-                        <p className="text-xs text-slate-500">Signed in as</p>
-                        <p className="text-sm font-bold text-slate-800 truncate">{user.name}</p>
-                        <p className="text-xs text-slate-400 truncate">{user.email}</p>
+                      <div className="px-3 py-2 border-b border-slate-100">
+                        <p className="text-[11px] text-slate-400">Signed in as</p>
+                        <p className="text-xs font-semibold text-slate-800 truncate">{user.name}</p>
+                        <p className="text-[11px] text-slate-500 truncate">{user.email}</p>
                         {isAdmin && (
-                          <span className="inline-block mt-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-purple-100 text-purple-700">
-                            Administrator
+                          <span className="inline-block mt-1 text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-50 text-brand-700 border border-brand-200">
+                            admin
                           </span>
                         )}
                       </div>
@@ -161,29 +159,29 @@ export default function Navbar() {
                       <Link
                         to="/my-reports"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                        className="flex items-center px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
                       >
-                        <FileText className="w-4 h-4 mr-2 text-slate-400" />
-                        My Reports
+                        <FileText className="w-3.5 h-3.5 mr-2 text-slate-400" />
+                        My reports
                       </Link>
 
                       <Link
                         to="/my-claims"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                        className="flex items-center px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50"
                       >
-                        <CheckCircle2 className="w-4 h-4 mr-2 text-slate-400" />
-                        My Claims
+                        <CheckCircle2 className="w-3.5 h-3.5 mr-2 text-slate-400" />
+                        My claims
                       </Link>
 
                       {isAdmin && (
                         <Link
                           to="/admin/claims"
                           onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center px-4 py-2 text-sm text-purple-700 hover:bg-purple-50 font-medium"
+                          className="flex items-center px-3 py-1.5 text-xs text-brand-700 hover:bg-brand-50 font-medium"
                         >
-                          <ShieldCheck className="w-4 h-4 mr-2 text-purple-500" />
-                          Review Claims Queue
+                          <ShieldCheck className="w-3.5 h-3.5 mr-2 text-brand-600" />
+                          Review claims queue
                         </Link>
                       )}
 
@@ -191,26 +189,26 @@ export default function Navbar() {
 
                       <button
                         onClick={handleLogout}
-                        className="w-full flex items-center px-4 py-2 text-sm text-rose-600 hover:bg-rose-50 font-medium"
+                        className="w-full flex items-center px-3 py-1.5 text-xs text-rose-600 hover:bg-rose-50 font-medium"
                       >
-                        <LogOut className="w-4 h-4 mr-2" />
-                        Sign Out
+                        <LogOut className="w-3.5 h-3.5 mr-2" />
+                        Sign out
                       </button>
                     </div>
                   )}
                 </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1.5">
                 <Link
                   to="/login"
-                  className="px-3 py-2 text-sm font-semibold text-slate-700 hover:text-indigo-600 transition-colors"
+                  className="px-3 py-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 rounded-md hover:bg-slate-50 transition-colors"
                 >
-                  Log In
+                  Sign in
                 </Link>
                 <Link
                   to="/register"
-                  className="px-3.5 py-2 text-sm font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors"
+                  className="px-3 py-1.5 text-xs font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-md transition-colors"
                 >
                   Register
                 </Link>
@@ -221,18 +219,18 @@ export default function Navbar() {
           {/* Mobile menu hamburger */}
           <div className="flex md:hidden items-center space-x-2">
             {user && (
-              <Link to="/notifications" className="p-2 relative text-slate-600">
-                <Bell className="w-5 h-5" />
+              <Link to="/notifications" className="p-1.5 relative text-slate-600">
+                <Bell className="w-4 h-4" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-rose-500 rounded-full"></span>
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-brand-600 rounded-full"></span>
                 )}
               </Link>
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+              className="p-1.5 rounded-md text-slate-600 hover:bg-slate-100"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -240,79 +238,71 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-6 space-y-3">
+        <div className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2.5 animate-reveal">
           <Link
             to="/report"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center justify-center w-full py-2.5 rounded-lg bg-indigo-600 text-white font-semibold text-sm"
+            className="flex items-center justify-center w-full py-2 rounded-md bg-brand-600 text-white font-medium text-xs"
           >
-            <PlusCircle className="w-4 h-4 mr-1.5" />
-            Report Item
+            <PlusCircle className="w-3.5 h-3.5 mr-1.5" />
+            Report item
           </Link>
+
           <Link
             to="/browse"
             onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50"
+            className="block py-1.5 text-xs font-medium text-slate-700 hover:text-slate-900"
           >
-            Browse Items
+            Browse registry
           </Link>
+
           {user ? (
             <>
               <Link
                 to="/my-reports"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50"
+                className="block py-1.5 text-xs font-medium text-slate-700 hover:text-slate-900"
               >
-                My Reports
+                My reports
               </Link>
               <Link
                 to="/my-claims"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50"
+                className="block py-1.5 text-xs font-medium text-slate-700 hover:text-slate-900"
               >
-                My Claims
-              </Link>
-              <Link
-                to="/notifications"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50"
-              >
-                Notifications ({unreadCount})
+                My claims
               </Link>
               {isAdmin && (
                 <Link
                   to="/admin"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-purple-700 bg-purple-50"
+                  className="block py-1.5 text-xs font-medium text-brand-700"
                 >
-                  Admin Dashboard
+                  Administration
                 </Link>
               )}
               <div className="pt-2 border-t border-slate-100">
                 <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    handleLogout();
-                  }}
-                  className="w-full text-left px-3 py-2 text-rose-600 font-medium"
+                  onClick={handleLogout}
+                  className="w-full text-left py-1 text-xs text-rose-600 font-medium"
                 >
-                  Sign Out ({user.name})
+                  Sign out
                 </button>
               </div>
             </>
           ) : (
-            <div className="pt-2 border-t border-slate-100 space-y-2">
+            <div className="pt-2 border-t border-slate-100 flex gap-2">
               <Link
                 to="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center py-2 text-sm font-semibold text-slate-700 bg-slate-100 rounded-lg"
+                className="flex-1 text-center py-1.5 rounded-md border border-slate-200 text-xs font-medium text-slate-700"
               >
-                Log In
+                Sign in
               </Link>
               <Link
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg"
+                className="flex-1 text-center py-1.5 rounded-md bg-slate-900 text-xs font-medium text-white"
               >
                 Register
               </Link>

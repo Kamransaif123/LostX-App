@@ -83,7 +83,7 @@ export default function AdminClaims() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800 mb-2">
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-brand-100 text-brand-800 mb-2">
             <ShieldCheck className="w-3.5 h-3.5 mr-1" />
             Verification Queue
           </div>
@@ -149,7 +149,7 @@ export default function AdminClaims() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 animate-pulse h-48"></div>
+            <div key={i} className="bg-white p-6 rounded-md border border-slate-200 animate-pulse h-48"></div>
           ))}
         </div>
       ) : claims.length > 0 ? (
@@ -159,7 +159,7 @@ export default function AdminClaims() {
             return (
               <div
                 key={claim._id}
-                className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 space-y-5"
+                className="bg-white rounded-md border border-slate-200/90 shadow-sm p-6 space-y-5"
               >
                 {/* Found Item Info Header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
@@ -214,7 +214,7 @@ export default function AdminClaims() {
                 {/* SIDE-BY-SIDE VERIFICATION COMPARISON */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Left: Finder's Stored Private Detail */}
-                  <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-2">
+                  <div className="p-4 rounded-md bg-amber-50/70 border border-amber-200 space-y-2">
                     <div className="flex items-center justify-between text-xs font-bold text-amber-900 uppercase tracking-wider">
                       <span className="flex items-center">
                         <Lock className="w-3.5 h-3.5 mr-1 text-amber-700" />
@@ -233,22 +233,22 @@ export default function AdminClaims() {
                   </div>
 
                   {/* Right: Claimant's Submitted Proof */}
-                  <div className="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 space-y-2">
-                    <div className="flex items-center justify-between text-xs font-bold text-indigo-900 uppercase tracking-wider">
+                  <div className="p-4 rounded-md bg-brand-50/70 border border-brand-200 space-y-2">
+                    <div className="flex items-center justify-between text-xs font-bold text-brand-900 uppercase tracking-wider">
                       <span>Claimant: {claim.claimant?.name}</span>
-                      <span className="text-[10px] text-indigo-700 font-normal">
+                      <span className="text-[10px] text-brand-700 font-normal">
                         ({claim.claimant?.email})
                       </span>
                     </div>
-                    <p className="text-xs text-indigo-950 font-medium leading-relaxed bg-white/70 p-3 rounded-xl border border-indigo-200/50">
+                    <p className="text-xs text-brand-950 font-medium leading-relaxed bg-white/70 p-3 rounded-xl border border-brand-200/50">
                       "{claim.proofText}"
                     </p>
                     {claim.lostItem && (
-                      <p className="text-[11px] text-indigo-700">
+                      <p className="text-[11px] text-brand-700">
                         <strong>Linked Lost Report:</strong>{' '}
                         <Link
                           to={`/items/${claim.lostItem._id}`}
-                          className="underline hover:text-indigo-900"
+                          className="underline hover:text-brand-900"
                         >
                           {claim.lostItem.title}
                         </Link>
@@ -268,8 +268,8 @@ export default function AdminClaims() {
           })}
         </div>
       ) : (
-        <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mx-auto">
+        <div className="bg-white rounded-md border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center mx-auto">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold text-slate-800">No claims in this category</h3>
@@ -282,7 +282,7 @@ export default function AdminClaims() {
       {/* Resolution Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-100">
+          <div className="bg-white rounded-md max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-100">
             <h3 className="text-xl font-black text-slate-900">
               {actionType === 'approve' ? 'Approve Verification Claim' : 'Reject Claim'}
             </h3>
@@ -313,7 +313,7 @@ export default function AdminClaims() {
                   }
                   value={adminNote}
                   onChange={(e) => setAdminNote(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-600"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600"
                 ></textarea>
               </div>
 

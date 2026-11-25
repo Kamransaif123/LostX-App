@@ -82,7 +82,19 @@ exports.login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    const rawInput = email.toLowerCase().trim();
+    // Normalize campus usernames if provided
+    let lookupEmail = rawInput;
+    if (rawInput === 'alice.campus') lookupEmail = 'alice@campus.edu';
+    if (rawInput === 'bob.campus') lookupEmail = 'bob@campus.edu';
+    if (rawInput === 'admin.campus') lookupEmail = 'admin@lostx.campus';
+
+    const user = await User.findOne({
+      $or: [
+        { email: lookupEmail },
+        { email: rawInput }
+      ]
+    });
     if (!user) {
       return res.status(401).json({
         success: false,

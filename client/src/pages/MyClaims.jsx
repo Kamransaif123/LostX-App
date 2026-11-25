@@ -63,7 +63,7 @@ export default function MyClaims() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 animate-pulse space-y-3">
+            <div key={i} className="bg-white p-6 rounded-md border border-slate-200 animate-pulse space-y-3">
               <div className="h-5 bg-slate-200 rounded w-1/4"></div>
               <div className="h-4 bg-slate-200 rounded w-3/4"></div>
             </div>
@@ -76,7 +76,7 @@ export default function MyClaims() {
             return (
               <div
                 key={claim._id}
-                className="bg-white rounded-3xl border border-slate-200/80 p-5 sm:p-6 shadow-sm space-y-4 hover:border-slate-300 transition-colors"
+                className="bg-white rounded-md border border-slate-200/80 p-5 sm:p-6 shadow-sm space-y-4 hover:border-slate-300 transition-colors"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
                   <div className="flex items-center space-x-3">
@@ -120,7 +120,7 @@ export default function MyClaims() {
                     {foundItem && (
                       <Link
                         to={`/items/${foundItem._id}`}
-                        className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center px-2 py-1"
+                        className="text-xs font-bold text-brand-600 hover:text-brand-800 flex items-center px-2 py-1"
                       >
                         View Item <ArrowRight className="w-3.5 h-3.5 ml-1" />
                       </Link>
@@ -130,7 +130,7 @@ export default function MyClaims() {
 
                 {/* Handover notification if approved */}
                 {claim.status === 'approved' && foundItem?.handoverInfo && (
-                  <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start space-x-2.5">
+                  <div className="p-4 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start space-x-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                     <div className="text-xs">
                       <span className="font-bold">Claim Approved! Pick up details:</span>{' '}
@@ -144,7 +144,7 @@ export default function MyClaims() {
 
                 {/* Admin rejection reason */}
                 {claim.status === 'rejected' && claim.adminNote && (
-                  <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 flex items-start space-x-2.5 text-xs">
+                  <div className="p-4 rounded-md bg-rose-50 border border-rose-200 text-rose-900 flex items-start space-x-2.5 text-xs">
                     <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
                     <div>
                       <span className="font-bold">Admin Feedback:</span> {claim.adminNote}
@@ -164,8 +164,8 @@ export default function MyClaims() {
           })}
         </div>
       ) : (
-        <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+        <div className="bg-white rounded-md border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-md bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold text-slate-800">No claims submitted</h3>

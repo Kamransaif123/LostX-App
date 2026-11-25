@@ -460,3 +460,29 @@ exports.renewItem = async (req, res) => {
     });
   }
 };
+
+exports.getPublicStats = async (req, res) => {
+  try {
+    const [lostCount, foundCount, recoveredCount] = await Promise.all([
+      Item.countDocuments({ type: 'lost' }),
+      Item.countDocuments({ type: 'found' }),
+      Item.countDocuments({ status: 'recovered' })
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      stats: {
+        lost: lostCount,
+        found: foundCount,
+        recovered: recoveredCount,
+        total: lostCount + foundCount
+      }
+    });
+  } catch (error) {
+    console.error('Get public stats error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Server error retrieving stats.'
+    });
+  }
+};

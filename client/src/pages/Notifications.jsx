@@ -69,7 +69,7 @@ export default function Notifications() {
             onClick={handleMarkAllRead}
             className="inline-flex items-center px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100 transition-colors"
           >
-            <CheckCheck className="w-4 h-4 mr-1 text-indigo-600" />
+            <CheckCheck className="w-4 h-4 mr-1 text-brand-600" />
             Mark all read
           </button>
         )}
@@ -78,7 +78,7 @@ export default function Notifications() {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white p-4 rounded-2xl border border-slate-200 animate-pulse h-16"></div>
+            <div key={i} className="bg-white p-4 rounded-md border border-slate-200 animate-pulse h-16"></div>
           ))}
         </div>
       ) : notifications.length > 0 ? (
@@ -87,15 +87,15 @@ export default function Notifications() {
             <div
               key={item._id}
               onClick={() => handleMarkAsRead(item._id, item.link)}
-              className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-start space-x-3.5 ${
+              className={`p-4 rounded-md border transition-all cursor-pointer flex items-start space-x-3.5 ${
                 !item.read
-                  ? 'bg-indigo-50/50 border-indigo-200 hover:bg-indigo-50'
+                  ? 'bg-brand-50/50 border-brand-200 hover:bg-brand-50'
                   : 'bg-white border-slate-200/80 hover:bg-slate-50'
               }`}
             >
               <div
                 className={`p-2 rounded-xl flex-shrink-0 mt-0.5 ${
-                  !item.read ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-400'
+                  !item.read ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-400'
                 }`}
               >
                 <Sparkles className="w-4 h-4" />
@@ -109,7 +109,7 @@ export default function Notifications() {
                   <Clock className="w-3 h-3" />
                   <span>{new Date(item.createdAt).toLocaleString()}</span>
                   {!item.read && (
-                    <span className="w-2 h-2 rounded-full bg-indigo-600 inline-block"></span>
+                    <span className="w-2 h-2 rounded-full bg-brand-600 inline-block"></span>
                   )}
                 </div>
               </div>
@@ -117,8 +117,8 @@ export default function Notifications() {
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+        <div className="bg-white rounded-md border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-md bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
             <Bell className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold text-slate-800">No notifications yet</h3>

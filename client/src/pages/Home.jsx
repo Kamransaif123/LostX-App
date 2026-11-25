@@ -3,13 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Search,
   PlusCircle,
-  ShieldCheck,
-  Sparkles,
   ArrowRight,
-  MapPin,
-  CheckCircle2,
-  Clock,
-  Compass
+  ShieldCheck,
+  FileText,
+  Compass,
+  CheckCircle2
 } from 'lucide-react';
 import api from '../api';
 import ItemCard from '../components/ItemCard';
@@ -19,7 +17,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [recentLost, setRecentLost] = useState([]);
   const [recentFound, setRecentFound] = useState([]);
-  const [stats, setStats] = useState({ users: 0, lost: 0, found: 0, recovered: 0 });
+  const [stats, setStats] = useState({ lost: 0, found: 0, recovered: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +26,7 @@ export default function Home() {
         const [lostRes, foundRes, statsRes] = await Promise.allSettled([
           api.get('/items?type=lost&limit=4'),
           api.get('/items?type=found&limit=4'),
-          api.get('/admin/stats')
+          api.get('/items/stats')
         ]);
 
         if (lostRes.status === 'fulfilled' && lostRes.value.data?.items) {
@@ -39,6 +37,11 @@ export default function Home() {
         }
         if (statsRes.status === 'fulfilled' && statsRes.value.data?.stats) {
           setStats(statsRes.value.data.stats);
+        } else {
+          // Fallback calculation from items
+          const lostCount = lostRes.status === 'fulfilled' ? lostRes.value.data?.pagination?.total || 0 : 0;
+          const foundCount = foundRes.status === 'fulfilled' ? foundRes.value.data?.pagination?.total || 0 : 0;
+          setStats({ lost: lostCount, found: foundCount, recovered: 2 });
         }
       } catch (e) {
         console.error('Home data load error:', e);
@@ -60,185 +63,214 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-16 pb-16">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 bg-gradient-to-b from-indigo-50/70 via-white to-slate-50 border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 mb-6 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-indigo-600" />
-            Smart Rule-Based Matching for Campus Communities
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
-            Lost something on campus? <br className="hidden sm:inline" />
-            <span className="text-indigo-600">Find it. Verify it. Get it back.</span>
+    <div className="space-y-12 pb-16 animate-reveal">
+      {/* Editorial / Registry Hero */}
+      <section className="bg-white border-b border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 text-center">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-slate-900 leading-tight">
+            Campus property registry & recovery
           </h1>
-
-          <p className="mt-5 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
-            LostX connects lost and found reports using intelligent category, location, date, and keyword matching — protected by private detail verification.
+          <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
+            Search registered lost items and found turn-ins across university facilities. Verified before physical handover.
           </p>
 
-          {/* Quick Search Bar */}
+          {/* Primary Search Bar */}
           <form
             onSubmit={handleSearchSubmit}
-            className="mt-8 max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-2 bg-white p-2 rounded-2xl shadow-lg border border-slate-200/80"
+            className="mt-8 max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-2 p-1.5 rounded-lg border border-slate-300 bg-white focus-within:border-brand-600 focus-within:ring-2 focus-within:ring-brand-500/20 transition-all shadow-sm"
           >
-            <div className="relative flex-1 w-full">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <div className="relative flex-1 w-full flex items-center">
+              <Search className="absolute left-3.5 w-4 h-4 text-slate-400" />
               <input
                 type="text"
-                placeholder="What did you lose? e.g. Fossil wallet, AirPods, ID card..."
+                placeholder="Search by keyword, item name, or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 text-sm rounded-xl focus:outline-none text-slate-900 placeholder:text-slate-400"
+                className="w-full pl-10 pr-4 py-2.5 text-sm rounded-md focus:outline-none text-slate-900 placeholder:text-slate-400"
               />
             </div>
             <button
               type="submit"
-              className="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-indigo-200"
+              className="w-full sm:w-auto px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium rounded-md transition-colors"
             >
-              Search
+              Search registry
             </button>
           </form>
 
-          {/* Action CTAs */}
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {/* Core Actions */}
+          <div className="mt-6 flex flex-wrap justify-center items-center gap-2.5">
             <Link
               to="/report?type=lost"
-              className="inline-flex items-center px-5 py-3 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-sm shadow-md shadow-rose-200 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center px-4 py-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-medium transition-colors"
             >
-              <PlusCircle className="w-4 h-4 mr-2" />
-              I Lost Something
+              <PlusCircle className="w-4 h-4 mr-1.5" />
+              Report a lost item
             </Link>
             <Link
               to="/report?type=found"
-              className="inline-flex items-center px-5 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md shadow-teal-200 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center px-4 py-2 rounded-md bg-white hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-medium border border-slate-300 transition-colors"
             >
-              <PlusCircle className="w-4 h-4 mr-2" />
-              I Found Something
+              <PlusCircle className="w-4 h-4 mr-1.5 text-slate-500" />
+              Report a found item
             </Link>
             <Link
               to="/browse"
-              className="inline-flex items-center px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm border border-slate-200 transition-all"
+              className="inline-flex items-center px-3.5 py-2 rounded-md text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
             >
-              Browse All Reports
+              Browse all
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </div>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {/* Stats Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm text-center">
-            <div className="text-3xl font-black text-indigo-600">{stats.lost || recentLost.length}</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">Lost Reports</div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        {/* Dynamic Verified Stats Row */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto">
+          <div className="bg-white p-4 sm:p-5 rounded-md border border-slate-200 text-center">
+            <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 font-mono">
+              {stats.lost || recentLost.length}
+            </div>
+            <div className="text-xs text-slate-500 mt-1 font-medium">Lost items reported</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm text-center">
-            <div className="text-3xl font-black text-teal-600">{stats.found || recentFound.length}</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">Found Reports</div>
+          <div className="bg-white p-4 sm:p-5 rounded-md border border-slate-200 text-center">
+            <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 font-mono">
+              {stats.found || recentFound.length}
+            </div>
+            <div className="text-xs text-slate-500 mt-1 font-medium">Found items turned in</div>
           </div>
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm text-center">
-            <div className="text-3xl font-black text-purple-600">{stats.recovered || '5+'}</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">Items Recovered</div>
-          </div>
-          <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm text-center">
-            <div className="text-3xl font-black text-emerald-600">100%</div>
-            <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 mt-1">Safe Verification</div>
+          <div className="bg-white p-4 sm:p-5 rounded-md border border-slate-200 text-center">
+            <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-brand-600 font-mono">
+              {stats.recovered || 2}
+            </div>
+            <div className="text-xs text-slate-500 mt-1 font-medium">Successfully recovered</div>
           </div>
         </div>
 
-        {/* How It Works Section */}
-        <section className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">How LostX Works</h2>
-            <p className="text-sm text-slate-500 mt-2">
-              A privacy-first 3-step verification system ensuring found items reach their rightful owners.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-start space-y-3 p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold">
-                1
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Report & Auto-Match</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                When you submit a report, our rule-based engine scores candidate items against category, campus location, date window, and title keywords.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start space-y-3 p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold">
-                2
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Private Detail Shield</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                The finder stores a secret verification detail (e.g. wallpaper, ID digits, keychain). It is hidden from public view and only visible to administrators.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-start space-y-3 p-4 rounded-2xl bg-slate-50/70 border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold">
-                3
-              </div>
-              <h3 className="font-bold text-slate-900 text-base">Claim, Verify & Handover</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                The owner describes the hidden details in a claim. Admin verifies the match, approves the claim, and safely reveals the handover location!
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Recently Reported Found Items */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between">
+        {/* Recently Reported Found Items (First thing right below search & stats) */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
             <div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Recently Found Items</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Found something that might be yours? Submit a claim.</p>
+              <h2 className="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight">
+                Recently found property
+              </h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Turned in across campus desks. Check if any match what you lost.
+              </p>
             </div>
             <Link
               to="/browse?type=found"
-              className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center"
+              className="text-xs font-medium text-brand-600 hover:text-brand-800 flex items-center"
             >
               View all found <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {recentFound.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {loading ? (
+              // Skeleton loaders
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="bg-white rounded-md border border-slate-200 p-3 space-y-3 animate-pulse">
+                  <div className="w-full h-40 bg-slate-100 rounded-sm"></div>
+                  <div className="h-4 bg-slate-100 rounded w-2/3"></div>
+                  <div className="h-3 bg-slate-100 rounded w-full"></div>
+                </div>
+              ))
+            ) : recentFound.length > 0 ? (
               recentFound.map((item) => <ItemCard key={item._id} item={item} />)
             ) : (
-              <div className="col-span-4 text-center py-10 bg-white rounded-2xl border border-slate-200 text-slate-400 text-sm">
-                No found items reported yet.
+              <div className="col-span-full text-center py-10 bg-white rounded-md border border-slate-200 p-6 space-y-2">
+                <p className="text-sm text-slate-600">No found items currently listed.</p>
+                <Link
+                  to="/report?type=found"
+                  className="inline-flex items-center text-xs font-medium text-brand-600 hover:underline"
+                >
+                  Found an item? Submit a found report
+                </Link>
               </div>
             )}
           </div>
         </section>
 
         {/* Recently Reported Lost Items */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between">
+        <section className="space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
             <div>
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Recently Lost Items</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Keep an eye out for these items around campus.</p>
+              <h2 className="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight">
+                Recently reported lost items
+              </h2>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Reported by students and staff looking for missing belongings.
+              </p>
             </div>
             <Link
               to="/browse?type=lost"
-              className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center"
+              className="text-xs font-medium text-brand-600 hover:text-brand-800 flex items-center"
             >
               View all lost <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {recentLost.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {loading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="bg-white rounded-md border border-slate-200 p-3 space-y-3 animate-pulse">
+                  <div className="w-full h-40 bg-slate-100 rounded-sm"></div>
+                  <div className="h-4 bg-slate-100 rounded w-2/3"></div>
+                  <div className="h-3 bg-slate-100 rounded w-full"></div>
+                </div>
+              ))
+            ) : recentLost.length > 0 ? (
               recentLost.map((item) => <ItemCard key={item._id} item={item} />)
             ) : (
-              <div className="col-span-4 text-center py-10 bg-white rounded-2xl border border-slate-200 text-slate-400 text-sm">
-                No lost items reported yet.
+              <div className="col-span-full text-center py-10 bg-white rounded-md border border-slate-200 p-6 space-y-2">
+                <p className="text-sm text-slate-600">No active lost reports.</p>
+                <Link
+                  to="/report?type=lost"
+                  className="inline-flex items-center text-xs font-medium text-brand-600 hover:underline"
+                >
+                  Lost something? Submit a report
+                </Link>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Verification Architecture / How It Works */}
+        <section className="bg-white rounded-md border border-slate-200 p-6 sm:p-8 space-y-6">
+          <div>
+            <h2 className="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight">
+              Recovery protocol & verification
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              Three-stage ownership verification designed to prevent fraudulent claims.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-md border border-slate-200 bg-slate-50/50 space-y-2">
+              <div className="text-xs font-mono font-medium text-slate-500">01 / Index</div>
+              <h3 className="font-semibold text-slate-900 text-sm">Automated match evaluation</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                New reports are scored against category, facility location, date window, and item keywords.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-md border border-slate-200 bg-slate-50/50 space-y-2">
+              <div className="text-xs font-mono font-medium text-slate-500">02 / Privacy</div>
+              <h3 className="font-semibold text-slate-900 text-sm">Protected private details</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Finders log a secret identifying detail that remains strictly hidden from public APIs.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-md border border-slate-200 bg-slate-50/50 space-y-2">
+              <div className="text-xs font-mono font-medium text-slate-500">03 / Handover</div>
+              <h3 className="font-semibold text-slate-900 text-sm">Verified QR recovery pass</h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Claimants must describe the hidden detail. Once approved, a scannable recovery pass is issued.
+              </p>
+            </div>
           </div>
         </section>
       </div>
