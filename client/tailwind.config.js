@@ -11,23 +11,45 @@ export default {
         mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
       },
       colors: {
+        void: {
+          950: '#07070D', // Deep cosmic midnight base
+          900: '#0B0A14',
+          850: '#100E1F',
+          800: '#16142A',
+          750: '#1D1A36',
+          700: '#252145',
+          600: '#342E5E'
+        },
         brand: {
-          50: '#f0f5ff',
-          100: '#e1ecfe',
-          200: '#c7dcfe',
-          300: '#9ec4fc',
-          400: '#6ea4f9',
-          500: '#3f82f6',
-          600: '#2563eb', // Crisp, refined, authoritative royal blue
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554'
+          50: '#f5f3ff',
+          100: '#ede9fe',
+          200: '#ddd6fe',
+          300: '#c4b5fd',
+          400: '#a78bfa',
+          500: '#8b5cf6', // Electric Ultraviolet
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95',
+          950: '#2e1065'
+        },
+        neon: {
+          cyan: '#00F0FF',
+          emerald: '#00F5A0',
+          violet: '#A855F7',
+          pink: '#EC4899',
+          amber: '#F59E0B'
         }
       },
+      boxShadow: {
+        'glow-violet': '0 0 25px -4px rgba(139, 92, 246, 0.35)',
+        'glow-cyan': '0 0 25px -4px rgba(0, 240, 255, 0.35)',
+        'glow-emerald': '0 0 25px -4px rgba(0, 245, 160, 0.35)',
+        'glow-sm': '0 0 15px -2px rgba(139, 92, 246, 0.25)',
+      },
       borderRadius: {
-        'card': '6px',
-        'subtle': '4px'
+        'card': '8px',
+        'subtle': '6px'
       }
     },
   },

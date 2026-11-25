@@ -7,9 +7,6 @@ import HandoverPassModal from '../components/HandoverPassModal';
 import {
   CheckCircle2,
   AlertCircle,
-  Clock,
-  MapPin,
-  Tag,
   ArrowRight,
   ShieldCheck,
   Printer,
@@ -52,10 +49,10 @@ export default function MyClaims() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-      <div>
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight">My Verification Claims</h1>
-        <p className="text-xs text-slate-500 mt-1">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-reveal">
+      <div className="pb-4 border-b border-white/[0.08]">
+        <h1 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">My verification claims</h1>
+        <p className="text-xs text-slate-400 mt-1">
           Review claim progress, print approved pickup passes, or withdraw pending requests.
         </p>
       </div>
@@ -63,9 +60,9 @@ export default function MyClaims() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="bg-white p-6 rounded-md border border-slate-200 animate-pulse space-y-3">
-              <div className="h-5 bg-slate-200 rounded w-1/4"></div>
-              <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+            <div key={i} className="glass-card p-6 rounded-xl border border-white/[0.08] animate-pulse space-y-3">
+              <div className="h-5 bg-white/[0.04] rounded w-1/4"></div>
+              <div className="h-4 bg-white/[0.04] rounded w-3/4"></div>
             </div>
           ))}
         </div>
@@ -76,16 +73,16 @@ export default function MyClaims() {
             return (
               <div
                 key={claim._id}
-                className="bg-white rounded-md border border-slate-200/80 p-5 sm:p-6 shadow-sm space-y-4 hover:border-slate-300 transition-colors"
+                className="glass-panel rounded-xl border border-white/[0.08] p-5 sm:p-6 shadow-xl space-y-4 hover:border-white/[0.15] transition-colors"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.06] pb-3.5">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center">
                       <ShieldCheck className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-slate-900 text-base">
-                        {foundItem ? foundItem.title : 'Item Removed'}
+                      <h3 className="font-semibold text-white text-base">
+                        {foundItem ? foundItem.title : 'Item removed'}
                       </h3>
                       <p className="text-xs text-slate-400">
                         Claimed on {new Date(claim.createdAt).toLocaleDateString()}
@@ -93,23 +90,23 @@ export default function MyClaims() {
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <ClaimBadge status={claim.status} />
 
                     {claim.status === 'approved' && (
                       <button
                         onClick={() => setSelectedPassClaim({ ...claim, claimant: user })}
-                        className="inline-flex items-center px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-all"
+                        className="inline-flex items-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-glow-emerald transition-all"
                       >
-                        <Printer className="w-3.5 h-3.5 mr-1" />
-                        Print Pass
+                        <Printer className="w-3.5 h-3.5 mr-1.5" />
+                        Print pass
                       </button>
                     )}
 
                     {claim.status === 'pending' && (
                       <button
                         onClick={() => handleWithdrawClaim(claim._id)}
-                        className="inline-flex items-center px-3 py-1.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-xs transition-colors"
+                        className="inline-flex items-center px-3 py-1.5 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/15 font-medium text-xs transition-colors"
                         title="Withdraw this claim"
                       >
                         <Trash2 className="w-3.5 h-3.5 mr-1" />
@@ -120,9 +117,9 @@ export default function MyClaims() {
                     {foundItem && (
                       <Link
                         to={`/items/${foundItem._id}`}
-                        className="text-xs font-bold text-brand-600 hover:text-brand-800 flex items-center px-2 py-1"
+                        className="text-xs font-medium text-brand-400 hover:text-brand-300 flex items-center px-2 py-1"
                       >
-                        View Item <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                        View item <ArrowRight className="w-3.5 h-3.5 ml-1" />
                       </Link>
                     )}
                   </div>
@@ -130,12 +127,12 @@ export default function MyClaims() {
 
                 {/* Handover notification if approved */}
                 {claim.status === 'approved' && foundItem?.handoverInfo && (
-                  <div className="p-4 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start space-x-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <div className="p-4 rounded-xl glass-card bg-emerald-500/10 border border-emerald-500/25 text-emerald-200 flex items-start space-x-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
                     <div className="text-xs">
-                      <span className="font-bold">Claim Approved! Pick up details:</span>{' '}
-                      <span className="font-semibold">{foundItem.handoverInfo}</span>
-                      <p className="text-emerald-700 mt-0.5 text-[11px]">
+                      <span className="font-semibold text-emerald-300">Claim approved! Pick up details:</span>{' '}
+                      <span className="font-medium text-white">{foundItem.handoverInfo}</span>
+                      <p className="text-emerald-300/80 mt-0.5 text-[11px]">
                         Please present your student/staff ID to the desk attendant for collection.
                       </p>
                     </div>
@@ -144,39 +141,39 @@ export default function MyClaims() {
 
                 {/* Admin rejection reason */}
                 {claim.status === 'rejected' && claim.adminNote && (
-                  <div className="p-4 rounded-md bg-rose-50 border border-rose-200 text-rose-900 flex items-start space-x-2.5 text-xs">
-                    <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+                  <div className="p-4 rounded-xl glass-card bg-rose-500/10 border border-rose-500/25 text-rose-200 flex items-start space-x-2.5 text-xs">
+                    <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" />
                     <div>
-                      <span className="font-bold">Admin Feedback:</span> {claim.adminNote}
+                      <span className="font-semibold text-rose-300">Admin feedback:</span> {claim.adminNote}
                     </div>
                   </div>
                 )}
 
                 {/* Proof Submitted */}
-                <div className="text-xs bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                  <span className="font-bold text-slate-500 uppercase tracking-wider block mb-1">
-                    Your Submitted Verification Proof:
+                <div className="text-xs glass-card bg-white/[0.02] p-3.5 rounded-xl border border-white/[0.06]">
+                  <span className="font-medium text-slate-400 block mb-1">
+                    Your submitted verification proof:
                   </span>
-                  <p className="text-slate-700 leading-relaxed italic">"{claim.proofText}"</p>
+                  <p className="text-slate-300 leading-relaxed italic">"{claim.proofText}"</p>
                 </div>
               </div>
             );
           })}
         </div>
       ) : (
-        <div className="bg-white rounded-md border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-md bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+        <div className="glass-panel rounded-xl border border-white/[0.08] p-12 text-center max-w-md mx-auto space-y-3 shadow-2xl">
+          <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] text-slate-400 flex items-center justify-center mx-auto">
             <ShieldCheck className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-slate-800">No claims submitted</h3>
-          <p className="text-xs text-slate-500">
-            If you see an item that belongs to you in the Found listings, click "Claim This Item" to submit proof.
+          <h3 className="text-base font-semibold text-white">No claims submitted</h3>
+          <p className="text-xs text-slate-400">
+            If you see an item that belongs to you in the Found listings, click "Claim this item" to submit proof.
           </p>
           <Link
             to="/browse?type=found"
-            className="inline-block px-4 py-2 rounded-xl text-xs font-bold text-white bg-teal-600 hover:bg-teal-700"
+            className="inline-block px-4 py-2 rounded-lg text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-500 shadow-glow-emerald transition-all"
           >
-            Browse Found Items
+            Browse found items
           </Link>
         </div>
       )}

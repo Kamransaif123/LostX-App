@@ -2,18 +2,18 @@ import React from 'react';
 
 export function StatusBadge({ status }) {
   const configs = {
-    open: { label: 'Open', classes: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-    matched: { label: 'Match Found', classes: 'bg-blue-50 text-blue-700 border-blue-200' },
-    claimed: { label: 'Claimed', classes: 'bg-amber-50 text-amber-700 border-amber-200' },
-    recovered: { label: 'Recovered', classes: 'bg-brand-50 text-brand-700 border-brand-200' },
-    archived: { label: 'Archived / Expired', classes: 'bg-slate-100 text-slate-600 border-slate-300' }
+    open: { label: 'Open', classes: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]' },
+    matched: { label: 'Match Found', classes: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.15)]' },
+    claimed: { label: 'Claimed', classes: 'bg-amber-500/10 text-amber-400 border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]' },
+    recovered: { label: 'Recovered', classes: 'bg-violet-500/10 text-violet-400 border-violet-500/30 shadow-[0_0_12px_rgba(139,92,246,0.15)]' },
+    archived: { label: 'Archived', classes: 'bg-slate-800/60 text-slate-400 border-slate-700/50' }
   };
 
-  const current = configs[status] || { label: status, classes: 'bg-slate-100 text-slate-700 border-slate-200' };
+  const current = configs[status] || { label: status, classes: 'bg-slate-800/60 text-slate-300 border-slate-700' };
 
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${current.classes}`}>
-      <span className="w-1.5 h-1.5 mr-1.5 rounded-full bg-current opacity-70"></span>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border backdrop-blur-xs ${current.classes}`}>
+      <span className="w-1.5 h-1.5 mr-1.5 rounded-full bg-current opacity-80 animate-pulse"></span>
       {current.label}
     </span>
   );
@@ -23,11 +23,13 @@ export function TypeBadge({ type }) {
   const isLost = type === 'lost';
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-        isLost ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border backdrop-blur-xs ${
+        isLost
+          ? 'bg-rose-500/15 text-rose-400 border-rose-500/30 shadow-[0_0_10px_rgba(244,63,94,0.15)]'
+          : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
       }`}
     >
-      <span className="w-1.5 h-1.5 mr-1.5 rounded-full bg-current opacity-70"></span>
+      <span className="w-1.5 h-1.5 mr-1.5 rounded-full bg-current opacity-80"></span>
       {isLost ? 'Lost' : 'Found'}
     </span>
   );
@@ -35,15 +37,15 @@ export function TypeBadge({ type }) {
 
 export function ClaimBadge({ status }) {
   const configs = {
-    pending: { label: 'Pending Review', classes: 'bg-amber-100 text-amber-800 border-amber-200' },
-    approved: { label: 'Approved', classes: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
-    rejected: { label: 'Rejected', classes: 'bg-rose-100 text-rose-800 border-rose-200' }
+    pending: { label: 'Pending Review', classes: 'bg-amber-500/15 text-amber-300 border-amber-500/30' },
+    approved: { label: 'Approved', classes: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' },
+    rejected: { label: 'Rejected', classes: 'bg-rose-500/15 text-rose-300 border-rose-500/30' }
   };
 
-  const current = configs[status] || { label: status, classes: 'bg-slate-100 text-slate-700 border-slate-200' };
+  const current = configs[status] || { label: status, classes: 'bg-slate-800/60 text-slate-400 border-slate-700' };
 
   return (
-    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold border ${current.classes}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border ${current.classes}`}>
       {current.label}
     </span>
   );

@@ -100,17 +100,17 @@ export default function Browse() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-reveal">
       {/* Page Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">Browse campus registry</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <h1 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">Browse campus registry</h1>
+          <p className="text-xs text-slate-400 mt-1">
             Search active lost and found listings across all campus facilities.
           </p>
         </div>
 
         <Link
           to="/report"
-          className="inline-flex items-center px-3.5 py-2 rounded-md bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium transition-colors self-start sm:self-auto"
+          className="inline-flex items-center px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-medium transition-all shadow-glow-sm hover:shadow-glow self-start sm:self-auto"
         >
           <PlusCircle className="w-4 h-4 mr-1.5" />
           Report item
@@ -125,13 +125,13 @@ export default function Browse() {
       />
 
       {/* Results Header */}
-      <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-1">
+      <div className="flex items-center justify-between text-xs text-slate-400 font-medium px-1">
         <span>
-          Showing <strong className="text-slate-800 font-mono">{items.length}</strong> of{' '}
-          <strong className="text-slate-800 font-mono">{pagination.total}</strong> items
+          Showing <strong className="text-white font-mono">{items.length}</strong> of{' '}
+          <strong className="text-white font-mono">{pagination.total}</strong> items
         </span>
         {pagination.totalPages > 1 && (
-          <span className="font-mono">
+          <span className="font-mono text-slate-400">
             Page {pagination.page} of {pagination.totalPages}
           </span>
         )}
@@ -141,11 +141,11 @@ export default function Browse() {
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="bg-white rounded-md border border-slate-200 p-3 space-y-3 animate-pulse">
-              <div className="w-full h-40 bg-slate-100 rounded-sm"></div>
-              <div className="h-4 bg-slate-100 rounded w-1/3"></div>
-              <div className="h-5 bg-slate-100 rounded w-3/4"></div>
-              <div className="h-3 bg-slate-100 rounded w-full"></div>
+            <div key={i} className="glass-card rounded-xl border border-white/[0.08] p-3 space-y-3 animate-pulse">
+              <div className="w-full h-40 bg-white/[0.04] rounded-lg"></div>
+              <div className="h-4 bg-white/[0.04] rounded w-1/3"></div>
+              <div className="h-5 bg-white/[0.04] rounded w-3/4"></div>
+              <div className="h-3 bg-white/[0.04] rounded w-full"></div>
             </div>
           ))}
         </div>
@@ -156,24 +156,24 @@ export default function Browse() {
           ))}
         </div>
       ) : (
-        <div className="bg-white rounded-md border border-slate-200 p-8 sm:p-12 text-center max-w-md mx-auto space-y-3">
-          <div className="w-10 h-10 rounded-md bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
-            <Inbox className="w-5 h-5" />
+        <div className="glass-panel rounded-xl border border-white/[0.08] p-8 sm:p-12 text-center max-w-md mx-auto space-y-4 shadow-2xl">
+          <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] text-slate-400 flex items-center justify-center mx-auto">
+            <Inbox className="w-6 h-6 text-slate-400" />
           </div>
-          <h3 className="text-base font-semibold text-slate-800">No matching items found</h3>
-          <p className="text-xs text-slate-500 leading-relaxed">
+          <h3 className="text-base font-semibold text-white">No matching items found</h3>
+          <p className="text-xs text-slate-400 leading-relaxed">
             No active reports match your criteria. Try adjusting or clearing your filters, or report the item to register it in the system.
           </p>
-          <div className="flex justify-center gap-2 pt-2">
+          <div className="flex justify-center gap-2.5 pt-2">
             <button
               onClick={handleResetFilters}
-              className="px-3.5 py-1.5 rounded-md text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
+              className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] transition-colors"
             >
               Clear filters
             </button>
             <Link
               to="/report"
-              className="px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-brand-600 hover:bg-brand-700 transition-colors"
+              className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-white bg-brand-600 hover:bg-brand-500 shadow-glow-sm transition-all"
             >
               Report an item
             </Link>
@@ -183,11 +183,11 @@ export default function Browse() {
 
       {/* Pagination Controls */}
       {pagination.totalPages > 1 && (
-        <div className="flex items-center justify-center space-x-1.5 pt-4">
+        <div className="flex items-center justify-center space-x-2 pt-4">
           <button
             onClick={() => handlePageChange(pagination.page - 1)}
             disabled={pagination.page <= 1}
-            className="p-1.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="p-2 rounded-lg glass-card border border-white/[0.08] text-slate-400 hover:text-white hover:bg-white/[0.08] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -197,14 +197,14 @@ export default function Browse() {
             .map((p, idx, arr) => (
               <React.Fragment key={p}>
                 {idx > 0 && p - arr[idx - 1] > 1 && (
-                  <span className="text-xs text-slate-400 px-1 font-mono">...</span>
+                  <span className="text-xs text-slate-500 px-1 font-mono">...</span>
                 )}
                 <button
                   onClick={() => handlePageChange(p)}
-                  className={`w-8 h-8 rounded-md text-xs font-mono font-medium transition-colors ${
+                  className={`w-8 h-8 rounded-lg text-xs font-mono font-medium transition-all ${
                     pagination.page === p
-                      ? 'bg-slate-900 text-white'
-                      : 'border border-slate-200 text-slate-700 hover:bg-slate-50'
+                      ? 'bg-brand-600 text-white shadow-glow-sm border border-brand-400/40'
+                      : 'glass-card border border-white/[0.08] text-slate-400 hover:text-white hover:bg-white/[0.08]'
                   }`}
                 >
                   {p}
@@ -215,7 +215,7 @@ export default function Browse() {
           <button
             onClick={() => handlePageChange(pagination.page + 1)}
             disabled={pagination.page >= pagination.totalPages}
-            className="p-1.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="p-2 rounded-lg glass-card border border-white/[0.08] text-slate-400 hover:text-white hover:bg-white/[0.08] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
           >
             <ChevronRight className="w-4 h-4" />
           </button>

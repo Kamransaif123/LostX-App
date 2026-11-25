@@ -7,11 +7,7 @@ import {
   CheckCircle2,
   XCircle,
   Eye,
-  Lock,
-  ArrowRight,
-  MapPin,
-  Calendar,
-  AlertCircle
+  Lock
 } from 'lucide-react';
 
 export default function AdminClaims() {
@@ -22,7 +18,7 @@ export default function AdminClaims() {
   // Review modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedClaim, setSelectedClaim] = useState(null);
-  const [actionType, setActionType] = useState('approve'); // 'approve' | 'reject'
+  const [actionType, setActionType] = useState('approve');
   const [adminNote, setAdminNote] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -79,69 +75,69 @@ export default function AdminClaims() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-reveal">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
         <div>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-brand-100 text-brand-800 mb-2">
-            <ShieldCheck className="w-3.5 h-3.5 mr-1" />
-            Verification Queue
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-500/15 text-brand-300 border border-brand-500/30 mb-2">
+            <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-brand-400" />
+            Verification queue
           </div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Review Claims Queue</h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <h1 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">Review claims queue</h1>
+          <p className="text-xs text-slate-400 mt-1">
             Compare claimant verification proof against finder secret details side-by-side.
           </p>
         </div>
 
         <Link
           to="/admin"
-          className="text-xs font-bold text-slate-600 hover:text-slate-900 self-start sm:self-auto"
+          className="text-xs font-medium text-slate-400 hover:text-white self-start sm:self-auto transition-colors"
         >
-          ← Back to Dashboard
+          ← Back to dashboard
         </Link>
       </div>
 
       {/* Status Filter Tabs */}
-      <div className="flex items-center space-x-2 border-b border-slate-200 pb-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-white/[0.08] pb-3">
         <button
           onClick={() => setFilterStatus('pending')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === 'pending'
-              ? 'bg-amber-500 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              ? 'bg-amber-500/25 text-amber-300 border border-amber-500/40'
+              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
           }`}
         >
-          Pending Review ({filterStatus === 'pending' ? claims.length : '...'})
+          Pending review ({filterStatus === 'pending' ? claims.length : '...'})
         </button>
         <button
           onClick={() => setFilterStatus('approved')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === 'approved'
-              ? 'bg-emerald-600 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-glow-emerald'
+              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
           }`}
         >
           Approved
         </button>
         <button
           onClick={() => setFilterStatus('rejected')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === 'rejected'
-              ? 'bg-rose-600 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              ? 'bg-rose-500/25 text-rose-300 border border-rose-500/40 shadow-glow-rose'
+              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
           }`}
         >
           Rejected
         </button>
         <button
           onClick={() => setFilterStatus('')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === ''
-              ? 'bg-slate-900 text-white shadow-sm'
-              : 'text-slate-600 hover:bg-slate-100'
+              ? 'bg-brand-600/30 text-brand-300 border border-brand-500/40 shadow-glow-sm'
+              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
           }`}
         >
-          All Claims
+          All claims
         </button>
       </div>
 
@@ -149,7 +145,7 @@ export default function AdminClaims() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="bg-white p-6 rounded-md border border-slate-200 animate-pulse h-48"></div>
+            <div key={i} className="glass-card p-6 rounded-xl border border-white/[0.08] animate-pulse h-48"></div>
           ))}
         </div>
       ) : claims.length > 0 ? (
@@ -159,52 +155,52 @@ export default function AdminClaims() {
             return (
               <div
                 key={claim._id}
-                className="bg-white rounded-md border border-slate-200/90 shadow-sm p-6 space-y-5"
+                className="glass-panel rounded-xl border border-white/[0.08] shadow-xl p-6 space-y-5"
               >
                 {/* Found Item Info Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.06] pb-4">
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-bold uppercase tracking-wider text-teal-600">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-xs font-medium text-brand-400">
                         {foundItem?.category}
                       </span>
                       <ClaimBadge status={claim.status} />
                     </div>
-                    <h2 className="text-xl font-bold text-slate-900">
-                      {foundItem ? foundItem.title : 'Deleted Item'}
+                    <h2 className="text-lg font-semibold text-white">
+                      {foundItem ? foundItem.title : 'Deleted item'}
                     </h2>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Location: <strong className="text-slate-700">{foundItem?.location}</strong> • Finder:{' '}
-                      <strong className="text-slate-700">{foundItem?.reportedBy?.name || 'Unknown'}</strong> (
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Location: <strong className="text-slate-200">{foundItem?.location}</strong> • Finder:{' '}
+                      <strong className="text-slate-200">{foundItem?.reportedBy?.name || 'Unknown'}</strong> (
                       {foundItem?.reportedBy?.email})
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {claim.status === 'pending' && (
                       <>
                         <button
                           onClick={() => openActionModal(claim, 'approve')}
-                          className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm shadow-emerald-200 flex items-center transition-all"
+                          className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-glow-emerald flex items-center transition-all"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
-                          Approve Claim
+                          Approve claim
                         </button>
                         <button
                           onClick={() => openActionModal(claim, 'reject')}
-                          className="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-xs flex items-center transition-all"
+                          className="px-4 py-2 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/15 font-medium text-xs flex items-center transition-all"
                         >
                           <XCircle className="w-3.5 h-3.5 mr-1.5" />
-                          Reject Claim
+                          Reject claim
                         </button>
                       </>
                     )}
                     {foundItem && (
                       <Link
                         to={`/items/${foundItem._id}`}
-                        className="px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 flex items-center"
+                        className="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.08] flex items-center transition-colors"
                       >
-                        <Eye className="w-3.5 h-3.5 mr-1" />
+                        <Eye className="w-3.5 h-3.5 mr-1.5" />
                         View
                       </Link>
                     )}
@@ -214,41 +210,41 @@ export default function AdminClaims() {
                 {/* SIDE-BY-SIDE VERIFICATION COMPARISON */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Left: Finder's Stored Private Detail */}
-                  <div className="p-4 rounded-md bg-amber-50/70 border border-amber-200 space-y-2">
-                    <div className="flex items-center justify-between text-xs font-bold text-amber-900 uppercase tracking-wider">
+                  <div className="p-4 rounded-xl glass-card bg-amber-500/10 border border-amber-500/25 space-y-2">
+                    <div className="flex items-center justify-between text-xs font-semibold text-amber-300">
                       <span className="flex items-center">
-                        <Lock className="w-3.5 h-3.5 mr-1 text-amber-700" />
-                        Finder's Secret Verification Detail
+                        <Lock className="w-3.5 h-3.5 mr-1.5 text-amber-400" />
+                        Finder's secret verification detail
                       </span>
-                      <span className="text-[10px] text-amber-700 font-semibold">(Confidential)</span>
+                      <span className="text-[11px] text-amber-400/80 font-normal">(Confidential)</span>
                     </div>
-                    <p className="text-xs text-amber-950 font-medium leading-relaxed bg-white/70 p-3 rounded-xl border border-amber-200/50">
+                    <p className="text-xs text-amber-100 leading-relaxed bg-black/30 p-3 rounded-lg border border-amber-500/20 font-mono">
                       {foundItem?.privateDetails || 'No private detail recorded by finder.'}
                     </p>
                     {foundItem?.handoverInfo && (
-                      <p className="text-[11px] text-amber-800">
-                        <strong>Handover Spot:</strong> {foundItem.handoverInfo}
+                      <p className="text-[11px] text-amber-300/90">
+                        <strong>Handover spot:</strong> {foundItem.handoverInfo}
                       </p>
                     )}
                   </div>
 
                   {/* Right: Claimant's Submitted Proof */}
-                  <div className="p-4 rounded-md bg-brand-50/70 border border-brand-200 space-y-2">
-                    <div className="flex items-center justify-between text-xs font-bold text-brand-900 uppercase tracking-wider">
+                  <div className="p-4 rounded-xl glass-card bg-brand-500/10 border border-brand-500/25 space-y-2">
+                    <div className="flex items-center justify-between text-xs font-semibold text-brand-300">
                       <span>Claimant: {claim.claimant?.name}</span>
-                      <span className="text-[10px] text-brand-700 font-normal">
+                      <span className="text-[11px] text-brand-300/70 font-normal">
                         ({claim.claimant?.email})
                       </span>
                     </div>
-                    <p className="text-xs text-brand-950 font-medium leading-relaxed bg-white/70 p-3 rounded-xl border border-brand-200/50">
+                    <p className="text-xs text-slate-200 leading-relaxed bg-black/30 p-3 rounded-lg border border-brand-500/20">
                       "{claim.proofText}"
                     </p>
                     {claim.lostItem && (
-                      <p className="text-[11px] text-brand-700">
-                        <strong>Linked Lost Report:</strong>{' '}
+                      <p className="text-[11px] text-brand-300">
+                        <strong>Linked lost report:</strong>{' '}
                         <Link
                           to={`/items/${claim.lostItem._id}`}
-                          className="underline hover:text-brand-900"
+                          className="underline hover:text-white"
                         >
                           {claim.lostItem.title}
                         </Link>
@@ -259,8 +255,8 @@ export default function AdminClaims() {
 
                 {/* Admin Note if resolved */}
                 {claim.adminNote && (
-                  <div className="text-xs text-slate-500 pt-1">
-                    <strong>Admin Note:</strong> {claim.adminNote}
+                  <div className="text-xs text-slate-400 pt-1">
+                    <strong className="text-slate-300">Admin note:</strong> {claim.adminNote}
                   </div>
                 )}
               </div>
@@ -268,12 +264,12 @@ export default function AdminClaims() {
           })}
         </div>
       ) : (
-        <div className="bg-white rounded-md border border-slate-200 p-12 text-center max-w-md mx-auto space-y-3">
-          <div className="w-12 h-12 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center mx-auto">
+        <div className="glass-panel rounded-xl border border-white/[0.08] p-12 text-center max-w-md mx-auto space-y-3 shadow-2xl">
+          <div className="w-12 h-12 rounded-xl bg-brand-500/15 border border-brand-500/30 text-brand-400 flex items-center justify-center mx-auto">
             <ShieldCheck className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-slate-800">No claims in this category</h3>
-          <p className="text-xs text-slate-500">
+          <h3 className="text-base font-semibold text-white">No claims in this category</h3>
+          <p className="text-xs text-slate-400">
             All verification claims for this filter status have been processed.
           </p>
         </div>
@@ -281,27 +277,27 @@ export default function AdminClaims() {
 
       {/* Resolution Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white rounded-md max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-100">
-            <h3 className="text-xl font-black text-slate-900">
-              {actionType === 'approve' ? 'Approve Verification Claim' : 'Reject Claim'}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-reveal">
+          <div className="glass-panel rounded-xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-white/[0.12]">
+            <h3 className="text-lg font-semibold text-white">
+              {actionType === 'approve' ? 'Approve verification claim' : 'Reject claim'}
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-400">
               {actionType === 'approve'
                 ? 'Approving will mark the item as claimed and reveal the handover location to the claimant.'
                 : 'Rejecting will notify the claimant with your feedback reason.'}
             </p>
 
             {error && (
-              <div className="p-3 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-xl">
+              <div className="p-3 text-xs text-rose-300 bg-rose-500/15 border border-rose-500/30 rounded-lg">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleResolveClaim} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                  {actionType === 'approve' ? 'Optional Admin Note' : 'Rejection Reason'}
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                  {actionType === 'approve' ? 'Optional admin note' : 'Rejection reason'}
                 </label>
                 <textarea
                   required={actionType === 'reject'}
@@ -313,7 +309,7 @@ export default function AdminClaims() {
                   }
                   value={adminNote}
                   onChange={(e) => setAdminNote(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600"
+                  className="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none"
                 ></textarea>
               </div>
 
@@ -321,24 +317,24 @@ export default function AdminClaims() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100"
+                  className="px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.08] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className={`px-5 py-2.5 rounded-xl text-white font-bold text-xs shadow-md transition-all disabled:opacity-50 ${
+                  className={`px-5 py-2 rounded-lg text-white font-medium text-xs transition-all disabled:opacity-50 ${
                     actionType === 'approve'
-                      ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-200'
-                      : 'bg-rose-600 hover:bg-rose-700 shadow-rose-200'
+                      ? 'bg-emerald-600 hover:bg-emerald-500 shadow-glow-emerald'
+                      : 'bg-rose-600 hover:bg-rose-500 shadow-glow-rose'
                   }`}
                 >
                   {submitting
                     ? 'Processing...'
                     : actionType === 'approve'
-                    ? 'Confirm Approval'
-                    : 'Confirm Rejection'}
+                    ? 'Confirm approval'
+                    : 'Confirm rejection'}
                 </button>
               </div>
             </form>
