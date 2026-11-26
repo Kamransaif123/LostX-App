@@ -106,14 +106,21 @@ export default function Login() {
             <div className="flex gap-2">
               <button
                 type="button"
-                onClick={() => fillQuickDemo('alice.campus', 'password123')}
+                onClick={() => fillQuickDemo('admin@lostx.campus', '@Admin123')}
+                className="flex-1 py-1.5 rounded-lg border border-[#E4E6EF] text-xs font-medium text-gray-600 hover:bg-[#EEF0F8] transition-colors"
+              >
+                admin
+              </button>
+              <button
+                type="button"
+                onClick={() => fillQuickDemo('alice.campus', 'Password123!')}
                 className="flex-1 py-1.5 rounded-lg border border-[#E4E6EF] text-xs font-medium text-gray-600 hover:bg-[#EEF0F8] transition-colors"
               >
                 alice.campus
               </button>
               <button
                 type="button"
-                onClick={() => fillQuickDemo('bob.campus', 'password123')}
+                onClick={() => fillQuickDemo('bob.campus', 'Password123!')}
                 className="flex-1 py-1.5 rounded-lg border border-[#E4E6EF] text-xs font-medium text-gray-600 hover:bg-[#EEF0F8] transition-colors"
               >
                 bob.campus

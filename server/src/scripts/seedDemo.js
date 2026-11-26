@@ -30,7 +30,7 @@ async function seedDemoData() {
     console.log('Creating users...');
     const salt = await bcrypt.genSalt(10);
     const userPassHash = await bcrypt.hash('Password123!', salt);
-    const adminPassHash = await bcrypt.hash('Admin@12345', salt);
+    const adminPassHash = await bcrypt.hash('@Admin123', salt);
 
     const [admin, alice, bob] = await User.create([
       {
