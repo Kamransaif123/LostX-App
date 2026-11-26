@@ -1,52 +1,41 @@
 import React from 'react';
 
 export function StatusBadge({ status }) {
-  const configs = {
-    open: { label: 'Open', classes: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]' },
-    matched: { label: 'Match Found', classes: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.15)]' },
-    claimed: { label: 'Claimed', classes: 'bg-amber-500/10 text-amber-400 border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]' },
-    recovered: { label: 'Recovered', classes: 'bg-violet-500/10 text-violet-400 border-violet-500/30 shadow-[0_0_12px_rgba(139,92,246,0.15)]' },
-    archived: { label: 'Archived', classes: 'bg-slate-800/60 text-slate-400 border-slate-700/50' }
+  const map = {
+    active:    'bg-emerald-50 text-emerald-700 border-emerald-200',
+    claimed:   'bg-brand-50 text-brand-700 border-brand-200',
+    recovered: 'bg-teal-50 text-teal-700 border-teal-200',
+    archived:  'bg-gray-100 text-gray-600 border-gray-200',
   };
-
-  const current = configs[status] || { label: status, classes: 'bg-slate-800/60 text-slate-300 border-slate-700' };
-
+  const cls = map[status] || 'bg-gray-100 text-gray-600 border-gray-200';
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border backdrop-blur-xs ${current.classes}`}>
-      <span className="w-1.5 h-1.5 mr-1.5 rounded-full bg-current opacity-80 animate-pulse"></span>
-      {current.label}
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${cls}`}>
+      {status ? status.charAt(0).toUpperCase() + status.slice(1) : 'Unknown'}
     </span>
   );
 }
 
 export function TypeBadge({ type }) {
-  const isLost = type === 'lost';
+  const cls = type === 'lost'
+    ? 'bg-rose-500 text-white'
+    : 'bg-emerald-500 text-white';
   return (
-    <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border backdrop-blur-xs ${
-        isLost
-          ? 'bg-rose-500/15 text-rose-400 border-rose-500/30 shadow-[0_0_10px_rgba(244,63,94,0.15)]'
-          : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
-      }`}
-    >
-      <span className="w-1.5 h-1.5 mr-1.5 rounded-full bg-current opacity-80"></span>
-      {isLost ? 'Lost' : 'Found'}
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold ${cls} shadow-sm`}>
+      {type === 'lost' ? 'LOST ITEM' : 'FOUND ITEM'}
     </span>
   );
 }
 
 export function ClaimBadge({ status }) {
-  const configs = {
-    pending: { label: 'Pending Review', classes: 'bg-amber-500/15 text-amber-300 border-amber-500/30' },
-    approved: { label: 'Approved', classes: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' },
-    rejected: { label: 'Rejected', classes: 'bg-rose-500/15 text-rose-300 border-rose-500/30' }
+  const map = {
+    pending:  'bg-amber-50 text-amber-700 border-amber-200',
+    approved: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    rejected: 'bg-rose-50 text-rose-700 border-rose-200',
   };
-
-  const current = configs[status] || { label: status, classes: 'bg-slate-800/60 text-slate-400 border-slate-700' };
-
+  const cls = map[status] || 'bg-gray-100 text-gray-600 border-gray-200';
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium border ${current.classes}`}>
-      {current.label}
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border ${cls}`}>
+      {status ? status.charAt(0).toUpperCase() + status.slice(1) : 'Unknown'}
     </span>
   );
 }

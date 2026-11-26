@@ -11,45 +11,46 @@ export default {
         mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
       },
       colors: {
-        void: {
-          950: '#07070D', // Deep cosmic midnight base
-          900: '#0B0A14',
-          850: '#100E1F',
-          800: '#16142A',
-          750: '#1D1A36',
-          700: '#252145',
-          600: '#342E5E'
+        // Page & surface colors — inspired by Linear/Vercel/Notion
+        surface: {
+          base: '#F7F8FC',    // Page background — very slightly blue-tinted off-white
+          card: '#FFFFFF',    // Card/panel background — clean white
+          subtle: '#EEF0F8',  // Hover states, subtle sections
+          border: '#E4E6EF',  // Default border
+          muted: '#DDE0EF',   // Strong divider
         },
+        // Brand — violet-purple, same hue as original
         brand: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6', // Electric Ultraviolet
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065'
+          50:  '#F5F3FF',
+          100: '#EDE9FE',
+          200: '#DDD6FE',
+          300: '#C4B5FD',
+          400: '#A78BFA',
+          500: '#8B5CF6',
+          600: '#7C3AED',
+          700: '#6D28D9',
+          800: '#5B21B6',
+          900: '#4C1D95',
+          950: '#2E1065',
         },
-        neon: {
-          cyan: '#00F0FF',
-          emerald: '#00F5A0',
-          violet: '#A855F7',
-          pink: '#EC4899',
-          amber: '#F59E0B'
+        // Text
+        ink: {
+          primary: '#111827',  // Near-black headings (gray-900)
+          secondary: '#374151',// Body copy (gray-700)
+          muted: '#6B7280',    // Supporting text (gray-500)
+          faint: '#9CA3AF',    // Placeholder / disabled (gray-400)
         }
       },
       boxShadow: {
-        'glow-violet': '0 0 25px -4px rgba(139, 92, 246, 0.35)',
-        'glow-cyan': '0 0 25px -4px rgba(0, 240, 255, 0.35)',
-        'glow-emerald': '0 0 25px -4px rgba(0, 245, 160, 0.35)',
-        'glow-sm': '0 0 15px -2px rgba(139, 92, 246, 0.25)',
+        'card': '0 1px 3px 0 rgba(0,0,0,0.07), 0 1px 2px -1px rgba(0,0,0,0.05)',
+        'card-md': '0 4px 12px 0 rgba(0,0,0,0.08), 0 1px 3px -1px rgba(0,0,0,0.05)',
+        'card-hover': '0 8px 24px 0 rgba(0,0,0,0.10), 0 2px 6px -2px rgba(0,0,0,0.06)',
+        'brand-sm': '0 0 0 3px rgba(139,92,246,0.15)',
       },
       borderRadius: {
-        'card': '8px',
-        'subtle': '6px'
+        'card': '10px',
+        'pill': '999px',
+        'chip': '6px',
       }
     },
   },

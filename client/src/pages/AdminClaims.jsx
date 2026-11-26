@@ -77,34 +77,34 @@ export default function AdminClaims() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 animate-reveal">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E4E6EF]">
         <div>
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-500/15 text-brand-300 border border-brand-500/30 mb-2">
-            <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-brand-400" />
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-50 text-brand-700 border border-brand-200 mb-2">
+            <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-brand-600" />
             Verification queue
           </div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">Review claims queue</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Review claims queue</h1>
+          <p className="text-xs text-gray-500 mt-1">
             Compare claimant verification proof against finder secret details side-by-side.
           </p>
         </div>
 
         <Link
           to="/admin"
-          className="text-xs font-medium text-slate-400 hover:text-white self-start sm:self-auto transition-colors"
+          className="text-xs font-medium text-gray-500 hover:text-gray-900 self-start sm:self-auto transition-colors"
         >
           ← Back to dashboard
         </Link>
       </div>
 
       {/* Status Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-white/[0.08] pb-3">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#E4E6EF] pb-3">
         <button
           onClick={() => setFilterStatus('pending')}
           className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === 'pending'
-              ? 'bg-amber-500/25 text-amber-300 border border-amber-500/40'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+              ? 'bg-amber-500 text-white shadow-sm'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           Pending review ({filterStatus === 'pending' ? claims.length : '...'})
@@ -113,8 +113,8 @@ export default function AdminClaims() {
           onClick={() => setFilterStatus('approved')}
           className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === 'approved'
-              ? 'bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 shadow-glow-emerald'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+              ? 'bg-emerald-500 text-white shadow-sm'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           Approved
@@ -123,8 +123,8 @@ export default function AdminClaims() {
           onClick={() => setFilterStatus('rejected')}
           className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === 'rejected'
-              ? 'bg-rose-500/25 text-rose-300 border border-rose-500/40 shadow-glow-rose'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+              ? 'bg-rose-500 text-white shadow-sm'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           Rejected
@@ -133,8 +133,8 @@ export default function AdminClaims() {
           onClick={() => setFilterStatus('')}
           className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
             filterStatus === ''
-              ? 'bg-brand-600/30 text-brand-300 border border-brand-500/40 shadow-glow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
+              ? 'bg-brand-600 text-white shadow-sm'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           All claims
@@ -145,7 +145,7 @@ export default function AdminClaims() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="glass-card p-6 rounded-xl border border-white/[0.08] animate-pulse h-48"></div>
+            <div key={i} className="card p-6 rounded-xl animate-pulse h-48 bg-gray-100"></div>
           ))}
         </div>
       ) : claims.length > 0 ? (
@@ -155,23 +155,23 @@ export default function AdminClaims() {
             return (
               <div
                 key={claim._id}
-                className="glass-panel rounded-xl border border-white/[0.08] shadow-xl p-6 space-y-5"
+                className="card p-6 space-y-5"
               >
                 {/* Found Item Info Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/[0.06] pb-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E4E6EF] pb-4">
                   <div>
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-xs font-medium text-brand-400">
+                      <span className="text-xs font-medium text-brand-600">
                         {foundItem?.category}
                       </span>
                       <ClaimBadge status={claim.status} />
                     </div>
-                    <h2 className="text-lg font-semibold text-white">
+                    <h2 className="text-lg font-bold text-gray-900">
                       {foundItem ? foundItem.title : 'Deleted item'}
                     </h2>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      Location: <strong className="text-slate-200">{foundItem?.location}</strong> • Finder:{' '}
-                      <strong className="text-slate-200">{foundItem?.reportedBy?.name || 'Unknown'}</strong> (
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      Location: <strong className="text-gray-900">{foundItem?.location}</strong> • Finder:{' '}
+                      <strong className="text-gray-900">{foundItem?.reportedBy?.name || 'Unknown'}</strong> (
                       {foundItem?.reportedBy?.email})
                     </p>
                   </div>
@@ -181,14 +181,14 @@ export default function AdminClaims() {
                       <>
                         <button
                           onClick={() => openActionModal(claim, 'approve')}
-                          className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs shadow-glow-emerald flex items-center transition-all"
+                          className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-sm flex items-center transition-colors"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
                           Approve claim
                         </button>
                         <button
                           onClick={() => openActionModal(claim, 'reject')}
-                          className="px-4 py-2 rounded-lg border border-rose-500/30 text-rose-400 hover:bg-rose-500/15 font-medium text-xs flex items-center transition-all"
+                          className="px-4 py-2 rounded-lg border border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100 font-semibold text-xs flex items-center transition-colors"
                         >
                           <XCircle className="w-3.5 h-3.5 mr-1.5" />
                           Reject claim
@@ -198,7 +198,7 @@ export default function AdminClaims() {
                     {foundItem && (
                       <Link
                         to={`/items/${foundItem._id}`}
-                        className="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.08] flex items-center transition-colors"
+                        className="px-3 py-2 rounded-lg text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 flex items-center transition-colors"
                       >
                         <Eye className="w-3.5 h-3.5 mr-1.5" />
                         View
@@ -210,41 +210,41 @@ export default function AdminClaims() {
                 {/* SIDE-BY-SIDE VERIFICATION COMPARISON */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Left: Finder's Stored Private Detail */}
-                  <div className="p-4 rounded-xl glass-card bg-amber-500/10 border border-amber-500/25 space-y-2">
-                    <div className="flex items-center justify-between text-xs font-semibold text-amber-300">
+                  <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 space-y-2">
+                    <div className="flex items-center justify-between text-xs font-semibold text-amber-800">
                       <span className="flex items-center">
-                        <Lock className="w-3.5 h-3.5 mr-1.5 text-amber-400" />
+                        <Lock className="w-3.5 h-3.5 mr-1.5 text-amber-600" />
                         Finder's secret verification detail
                       </span>
-                      <span className="text-[11px] text-amber-400/80 font-normal">(Confidential)</span>
+                      <span className="text-[11px] text-amber-700 font-normal">(Confidential)</span>
                     </div>
-                    <p className="text-xs text-amber-100 leading-relaxed bg-black/30 p-3 rounded-lg border border-amber-500/20 font-mono">
+                    <p className="text-xs text-amber-900 leading-relaxed bg-white p-3 rounded-lg border border-amber-200 font-mono">
                       {foundItem?.privateDetails || 'No private detail recorded by finder.'}
                     </p>
                     {foundItem?.handoverInfo && (
-                      <p className="text-[11px] text-amber-300/90">
+                      <p className="text-[11px] text-amber-800">
                         <strong>Handover spot:</strong> {foundItem.handoverInfo}
                       </p>
                     )}
                   </div>
 
                   {/* Right: Claimant's Submitted Proof */}
-                  <div className="p-4 rounded-xl glass-card bg-brand-500/10 border border-brand-500/25 space-y-2">
-                    <div className="flex items-center justify-between text-xs font-semibold text-brand-300">
+                  <div className="p-4 rounded-xl bg-brand-50 border border-brand-200 space-y-2">
+                    <div className="flex items-center justify-between text-xs font-semibold text-brand-800">
                       <span>Claimant: {claim.claimant?.name}</span>
-                      <span className="text-[11px] text-brand-300/70 font-normal">
+                      <span className="text-[11px] text-brand-600 font-normal">
                         ({claim.claimant?.email})
                       </span>
                     </div>
-                    <p className="text-xs text-slate-200 leading-relaxed bg-black/30 p-3 rounded-lg border border-brand-500/20">
+                    <p className="text-xs text-gray-800 leading-relaxed bg-white p-3 rounded-lg border border-brand-200">
                       "{claim.proofText}"
                     </p>
                     {claim.lostItem && (
-                      <p className="text-[11px] text-brand-300">
+                      <p className="text-[11px] text-brand-700">
                         <strong>Linked lost report:</strong>{' '}
                         <Link
                           to={`/items/${claim.lostItem._id}`}
-                          className="underline hover:text-white"
+                          className="underline hover:text-brand-900"
                         >
                           {claim.lostItem.title}
                         </Link>
@@ -255,8 +255,8 @@ export default function AdminClaims() {
 
                 {/* Admin Note if resolved */}
                 {claim.adminNote && (
-                  <div className="text-xs text-slate-400 pt-1">
-                    <strong className="text-slate-300">Admin note:</strong> {claim.adminNote}
+                  <div className="text-xs text-gray-500 pt-1">
+                    <strong className="text-gray-700">Admin note:</strong> {claim.adminNote}
                   </div>
                 )}
               </div>
@@ -264,12 +264,12 @@ export default function AdminClaims() {
           })}
         </div>
       ) : (
-        <div className="glass-panel rounded-xl border border-white/[0.08] p-12 text-center max-w-md mx-auto space-y-3 shadow-2xl">
-          <div className="w-12 h-12 rounded-xl bg-brand-500/15 border border-brand-500/30 text-brand-400 flex items-center justify-center mx-auto">
+        <div className="card p-12 text-center max-w-md mx-auto space-y-3">
+          <div className="w-12 h-12 rounded-xl bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center mx-auto">
             <ShieldCheck className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-semibold text-white">No claims in this category</h3>
-          <p className="text-xs text-slate-400">
+          <h3 className="text-base font-bold text-gray-900">No claims in this category</h3>
+          <p className="text-xs text-gray-500">
             All verification claims for this filter status have been processed.
           </p>
         </div>
@@ -277,26 +277,26 @@ export default function AdminClaims() {
 
       {/* Resolution Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-reveal">
-          <div className="glass-panel rounded-xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-white/[0.12]">
-            <h3 className="text-lg font-semibold text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm animate-reveal">
+          <div className="bg-white rounded-xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-md border border-[#E4E6EF]">
+            <h3 className="text-lg font-bold text-gray-900">
               {actionType === 'approve' ? 'Approve verification claim' : 'Reject claim'}
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-gray-500">
               {actionType === 'approve'
                 ? 'Approving will mark the item as claimed and reveal the handover location to the claimant.'
                 : 'Rejecting will notify the claimant with your feedback reason.'}
             </p>
 
             {error && (
-              <div className="p-3 text-xs text-rose-300 bg-rose-500/15 border border-rose-500/30 rounded-lg">
+              <div className="p-3 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-lg">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleResolveClaim} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                <label className="block text-xs font-medium text-gray-700 mb-1.5">
                   {actionType === 'approve' ? 'Optional admin note' : 'Rejection reason'}
                 </label>
                 <textarea
@@ -309,7 +309,7 @@ export default function AdminClaims() {
                   }
                   value={adminNote}
                   onChange={(e) => setAdminNote(e.target.value)}
-                  className="glass-input w-full px-3.5 py-2.5 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none"
+                  className="field-input w-full"
                 ></textarea>
               </div>
 
@@ -317,17 +317,17 @@ export default function AdminClaims() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.08] transition-colors"
+                  className="px-4 py-2 rounded-lg text-xs font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className={`px-5 py-2 rounded-lg text-white font-medium text-xs transition-all disabled:opacity-50 ${
+                  className={`px-5 py-2 rounded-lg text-white font-semibold text-xs transition-colors disabled:opacity-50 ${
                     actionType === 'approve'
-                      ? 'bg-emerald-600 hover:bg-emerald-500 shadow-glow-emerald'
-                      : 'bg-rose-600 hover:bg-rose-500 shadow-glow-rose'
+                      ? 'bg-emerald-600 hover:bg-emerald-700'
+                      : 'bg-rose-600 hover:bg-rose-700'
                   }`}
                 >
                   {submitting
