@@ -2,7 +2,7 @@ const Claim = require('../models/Claim');
 const Item = require('../models/Item');
 const User = require('../models/User');
 const { notifyUser } = require('../services/notify');
-const { sendClaimDecisionEmail } = require('../services/email');
+const { sendClaimDecisionEmail, sendNewClaimAdminEmail } = require('../services/email');
 
 exports.submitClaim = async (req, res) => {
   try {
@@ -81,6 +81,25 @@ exports.submitClaim = async (req, res) => {
       foundItem.reportedBy,
       `A new claim was submitted for your found item "${foundItem.title}". Admin will review verification details.`,
       `/items/${foundItem._id}`
+    );
+
+    // Notify all admins (in-app + email) so claims can be reviewed promptly
+    const admins = await User.find({ role: 'admin' }).select('_id name email');
+    await Promise.all(
+      admins.map(async (admin) => {
+        await notifyUser(
+          admin._id,
+          `New claim submitted by ${req.user.name || 'a user'} for "${foundItem.title}". Review required.`,
+          '/admin/claims'
+        );
+        sendNewClaimAdminEmail({
+          toEmail: admin.email,
+          toName: admin.name,
+          itemTitle: foundItem.title,
+          claimantName: req.user.name,
+          claimantEmail: req.user.email
+        }).catch(() => {});
+      })
     );
 
     return res.status(201).json({

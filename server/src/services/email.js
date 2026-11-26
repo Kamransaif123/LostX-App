@@ -128,8 +128,32 @@ async function sendClaimDecisionEmail({ toEmail, toName, itemTitle, status, hand
   return sendEmail({ to: toEmail, subject, text, html });
 }
 
+/**
+ * Sends an email to admins when a new claim is submitted for review
+ */
+async function sendNewClaimAdminEmail({ toEmail, toName, itemTitle, claimantName, claimantEmail }) {
+  if (!toEmail) return;
+  const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const claimsUrl = `${clientUrl}/admin/claims`;
+
+  const subject = `[LostX] New Claim Pending Review: "${itemTitle}"`;
+  const text = `Hi ${toName || 'Admin'},\n\n${claimantName || 'A campus user'} (${claimantEmail || ''}) submitted a new claim for "${itemTitle}".\n\nReview the verification details in the admin queue:\n${claimsUrl}\n\n- LostX Campus Team`;
+  const html = `
+    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+      <h2 style="color: #4f46e5; margin-top: 0;">New Claim Submitted</h2>
+      <p>Hi <strong>${toName || 'Admin'}</strong>,</p>
+      <p><strong>${claimantName || 'A campus user'}</strong> (${claimantEmail || ''}) submitted a verification claim for <strong>"${itemTitle}"</strong>.</p>
+      <p><a href="${claimsUrl}" style="background-color: #4f46e5; color: white; padding: 10px 18px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold;">Review Claims Queue</a></p>
+      <p style="color: #64748b; font-size: 12px; margin-top: 25px;">LostX Campus Lost & Found System</p>
+    </div>
+  `;
+
+  return sendEmail({ to: toEmail, subject, text, html });
+}
+
 module.exports = {
   sendEmail,
   sendMatchNotificationEmail,
-  sendClaimDecisionEmail
+  sendClaimDecisionEmail,
+  sendNewClaimAdminEmail
 };
